@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
+import { FaSearch } from "react-icons/fa";
 import HeroSectcionVideo from "../image/video.mp4";
 
 const Hero = () => {
@@ -23,8 +24,8 @@ const Hero = () => {
 
             <div className="absolute inset-0 items-center justify-center z-10 hidden xl:flex">
                 <form onSubmit={handleSubmit} className="relative max-w-md -mt-[620px]">
-                    <CiSearch
-                        className="absolute top-1/2 left-3 transform -translate-y-1/2 z-50 text-white text-4xl cursor-pointer"
+                    <FaSearch
+                        className="absolute top-1/2 left-7 transform -translate-y-1/2 z-50 text-white cursor-pointer w-[25px] h-[29px]"
                         onClick={handleSubmit}
                     />
                     <input
@@ -32,7 +33,8 @@ const Hero = () => {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search"
-                        className="w-[550px] h-15 rounded-[10px] text-center border-2 border-gray-300 bg-white/20 backdrop-blur-sm py-2 pl-10 pr-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:border-yellow-600 hover:border-yellow-400 hover:border-[3px] text-2xl"
+                        className="w-[590px] h-[75px] rounded-[10px] text-center border-[3px] border-white bg-white/20 backdrop-blur-sm py-2 pl-12 pr-4 text-white text-2xl focus:outline-none focus:ring-2 focus:border-white-600 hover:border-white-400 
+                 placeholder:text-[26px] placeholder:font-semibold placeholder:leading-[120%] placeholder:tracking-[0.02em] placeholder:align-middle placeholder-white"
                     />
                 </form>
             </div>

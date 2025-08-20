@@ -18,7 +18,7 @@ const Slider1 = () => {
   const nextRef = useRef(null);
 
   return (
-    <div className="w-full relative mt-8 h-[200px] sm:h-[250px] md:h-[350px] ">
+    <div className="w-full relative h-[200px] sm:h-[250px] md:h-[350px] ">
       <Swiper
         modules={[Autoplay, Navigation]}
         autoplay={{ delay: 2000 }}
@@ -40,7 +40,7 @@ const Slider1 = () => {
             <img
               src={img}
               alt={`Slide ${index + 1}`}
-              className="w-full h-[200px] sm:h-[250px] md:h-[350px] object-cover rounded-[15px]"
+              className="w-full h-[200px] sm:h-[250px] md:h-[350px] object-cover"
             />
           </SwiperSlide>
         ))}

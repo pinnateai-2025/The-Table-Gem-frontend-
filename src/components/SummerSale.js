@@ -84,7 +84,7 @@ const SummerSale = () => {
                 Summer sale
             </h2>
 
-            <div className=" hide-scrollbar flex overflow-x-auto gap-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 pb-2">
+            <div className=" hide-scrollbar mt-[50px] flex overflow-x-auto gap-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 pb-2">
                 {products.map((product) => (
                     <div
                         key={product.id}
@@ -106,21 +106,32 @@ const SummerSale = () => {
                                 className="absolute inset-0 w-full h-full object-cover rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs"
                             />
                         </div>
-                        <h3 className="mt-2 text-sm font-semibold">{product.title}</h3>
-                        <div className="flex items-center justify-between">
-                            <div className="flex flex-col xs:flex-row sm:flex-row gap-2 items-start sm:items-center">
-                                <p className="text-xs text-red-700 line-through">
-                                    Rs. {product.originalPrice}.00
-                                </p>
-                                <p className="text-sm font-medium text-green-800">
-                                    Rs. {product.price}.00
-                                </p>
-                            </div>
 
-                            <FaRegHeart className="text-gray-500 hover:text-red-500 cursor-pointer" />
+                        <div className="flex items-center justify-between">
+                            {/* LEFT SIDE (Title + Prices) */}
+                            <div className="flex items-center justify-between">
+                                {/* LEFT SIDE (Title + Prices) */}
+                                <div className="flex flex-col w-full">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 md:text-[16px]">
+                                            {product.title}
+                                        </h3>
+                                        <FaRegHeart className="text-black text-[20px] hover:text-red-500 cursor-pointer ml-3" />
+                                    </div>
+
+                                    <div className="flex flex-row gap-2 items-center mt-2">
+                                        <p className="text-[16px] text-red-700 line-through md:text-[12px]">
+                                            Rs. {product.originalPrice}.00
+                                        </p>
+                                        <p className="text-[16px] font-medium text-green-800 md:text-[12px]">
+                                            Rs. {product.price}.00
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="mt-3 flex justify-between items-center">
+                        <div className="mt-10 flex justify-between items-center md:mt-[16px]">
                             <button className="border border-green-900 text-green-900 px-4 py-1 rounded hover:bg-green-900 hover:text-white transition w-full text-sm lg:text-xl">
                                 Add to cart
                             </button>
