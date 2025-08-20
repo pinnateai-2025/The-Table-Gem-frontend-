@@ -1,0 +1,135 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaRegHeart } from "react-icons/fa6";
+import hoverImage from "../image/img8.png";
+import img3 from "../image/img3.png";
+
+
+
+const products = [
+    {
+        id: 1,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: hoverImage,
+    },
+    {
+        id: 2,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: hoverImage,
+    },
+    {
+        id: 3,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: hoverImage,
+    },
+    {
+        id: 4,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: hoverImage,
+    },
+    {
+        id: 5,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: hoverImage,
+    },
+    {
+        id: 26,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: hoverImage,
+    },
+    {
+        id: 7,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: hoverImage,
+    },
+    {
+        id: 8,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: hoverImage,
+    },
+];
+
+
+const SummerSale = () => {
+
+
+    const navigate = useNavigate()
+    return (
+        <div className="px-6 py-10">
+            <h2 className="text-center text-2xl font-serif tracking-wide text-black py-3 rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase tracking-widest">
+                Summer sale
+            </h2>
+
+            <div className=" hide-scrollbar flex overflow-x-auto gap-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 pb-2">
+                {products.map((product) => (
+                    <div
+                        key={product.id}
+                        className="bg-white  rounded-lg  hover:shadow-md transition flex-shrink-0 
+                 w-[calc(42vw-1rem)] sm:w-[calc(50vw-1rem)] md:w-[250px] lg:w-[22%] sm:-px-5 "
+
+                    >
+                        <div className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] overflow-hidden rounded-md relative group">
+                            <img
+
+                                onClick={() => navigate('/productpage')}
+                                src={product.image}
+                                alt={product.title}
+                                className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"
+                            />
+                            <img
+                                src={product.hoverImage}
+                                alt={`${product.title} hover`}
+                                className="absolute inset-0 w-full h-full object-cover rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs"
+                            />
+                        </div>
+                        <h3 className="mt-2 text-sm font-semibold">{product.title}</h3>
+                        <div className="flex items-center justify-between">
+                            <div className="flex flex-col xs:flex-row sm:flex-row gap-2 items-start sm:items-center">
+                                <p className="text-xs text-red-700 line-through">
+                                    Rs. {product.originalPrice}.00
+                                </p>
+                                <p className="text-sm font-medium text-green-800">
+                                    Rs. {product.price}.00
+                                </p>
+                            </div>
+
+                            <FaRegHeart className="text-gray-500 hover:text-red-500 cursor-pointer" />
+                        </div>
+
+                        <div className="mt-3 flex justify-between items-center">
+                            <button className="border border-green-900 text-green-900 px-4 py-1 rounded hover:bg-green-900 hover:text-white transition w-full text-sm lg:text-xl">
+                                Add to cart
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default SummerSale;
