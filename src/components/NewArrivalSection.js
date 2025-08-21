@@ -84,7 +84,7 @@ const NewArrivals = () => {
             <div className="flex justify-center mb-10 w-full">
                 <button
                     onClick={() => navigate("/newarrival")}
-                    className=" w-[250px]  border border-green-900 py-2 px-10 rounded bg-[#0D4017] text-white transition hover:bg-white hover:text-green-900"
+                    className="w-[140px] h-[40px] flex items-center justify-center border border-green-900 py-2 px-10 rounded bg-[#0D4017] text-white transition hover:bg-white hover:text-green-900"
                 >
                     View All
                 </button>

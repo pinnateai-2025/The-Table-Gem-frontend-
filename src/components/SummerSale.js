@@ -109,7 +109,7 @@ const SummerSale = () => {
 
                         <div className="flex items-center justify-between">
                             {/* LEFT SIDE (Title + Prices) */}
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between mt-[10px]">
                                 {/* LEFT SIDE (Title + Prices) */}
                                 <div className="flex flex-col w-full">
                                     <div className="flex items-center justify-between">
