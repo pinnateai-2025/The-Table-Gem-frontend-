@@ -18,9 +18,11 @@ const NewArrivals = () => {
     return (
         <>
             <div className="px-6 py-10 -mt-100">
-                <h2 className="text-center text-2xl font-serif tracking-wide text-black py-3 rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase tracking-widest">
-                    New Arrivals
-                </h2>
+                 <h2
+                className="flex items-center justify-center h-[48px] font-trajan text-[40px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
+            >
+                New Arrivals
+            </h2>
 
                 {/* Product Cards */}
                 <div className="hide-scrollbar mt-[50px] flex overflow-x-auto gap-6 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 pb-2">

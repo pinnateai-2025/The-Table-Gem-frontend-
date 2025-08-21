@@ -80,8 +80,10 @@ const SummerSale = () => {
     const navigate = useNavigate()
     return (
         <div className="px-6 py-10">
-            <h2 className="text-center text-2xl font-serif tracking-wide text-black py-3 rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase tracking-widest">
-                Summer sale
+             <h2
+                className="flex items-center justify-center h-[48px] font-trajan text-[40px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
+            >
+                Summer Sale
             </h2>
 
             <div className=" hide-scrollbar mt-[50px] flex overflow-x-auto gap-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 pb-2">

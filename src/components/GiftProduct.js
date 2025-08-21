@@ -20,7 +20,9 @@ const GiftProduct = () => {
 
     return (
         <div className="w-full px-4 py-6">
-            <h2 className="text-center text-2xl font-serif tracking-wide text-black py-3 rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase tracking-widest">
+            <h2
+                className="flex items-center justify-center h-[48px] font-trajan text-[40px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
+            >
                 Gifts
             </h2>
             <ProductFilter />
@@ -79,8 +81,8 @@ const GiftProduct = () => {
 
             <div className="flex justify-center mt-[20px] w-full">
                 <button
-                    onClick={() => navigate("/")}
-                    className="w-[110px] h-[40px] flex items-center justify-center border border-green-900 py-2 px-10 rounded bg-[#0D4017] text-white transition hover:bg-white hover:text-green-900"
+                    className="w-[110px] h-[40px] font-lato font-semibold text-[14px] leading-[120%] tracking-[0.02em] text-center align-middle border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
+                    onClick={() => navigate('/')}
                 >
                     Back
                 </button>

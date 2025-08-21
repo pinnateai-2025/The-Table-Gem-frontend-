@@ -1,81 +1,26 @@
 import { useNavigate } from 'react-router-dom';
 import { FaRegHeart } from "react-icons/fa6";
-import hoverImage from "../image/img8.png";
 import img3 from "../image/img3.png";
+import imgHover from "../image/hover.jpg";
 
 const BestSelling = () => {
-    const products = [
-        {
-            id: 1,
-            title: "Ceramic Dinner Set of 6 Pcs",
-            originalPrice: 999,
-            price: 450,
-            image: img3,
-            hoverImage: hoverImage,
-        },
-        {
-            id: 2,
-            title: "Ceramic Dinner Set of 6 Pcs",
-            originalPrice: 999,
-            price: 450,
-            image: img3,
-            hoverImage: hoverImage,
-        },
-        {
-            id: 3,
-            title: "Ceramic Dinner Set of 6 Pcs",
-            originalPrice: 999,
-            price: 450,
-            image: img3,
-            hoverImage: hoverImage,
-        },
-        {
-            id: 4,
-            title: "Ceramic Dinner Set of 6 Pcs",
-            originalPrice: 999,
-            price: 450,
-            image: img3,
-            hoverImage: hoverImage,
-        },
-        {
-            id: 5,
-            title: "Ceramic Dinner Set of 6 Pcs",
-            originalPrice: 999,
-            price: 450,
-            image: img3,
-            hoverImage: hoverImage,
-        },
-        {
-            id: 6,
-            title: "Ceramic Dinner Set of 6 Pcs",
-            originalPrice: 999,
-            price: 450,
-            image: img3,
-            hoverImage: hoverImage,
-        },
-        {
-            id: 7,
-            title: "Ceramic Dinner Set of 6 Pcs",
-            originalPrice: 999,
-            price: 450,
-            image: img3,
-            hoverImage: hoverImage,
-        },
-        {
-            id: 8,
-            title: "Ceramic Dinner Set of 6 Pcs",
-            originalPrice: 999,
-            price: 450,
-            image: img3,
-            hoverImage: hoverImage,
-        },
-    ];
+
+    const products = Array.from({ length: 7 }, (_, i) => ({
+        id: i + 1,
+        title: "Ceramic Dinner Set of 6 Pcs",
+        originalPrice: 999,
+        price: 450,
+        image: img3,
+        hoverImage: imgHover,
+    }));
 
     const navigate = useNavigate();
 
     return (
         <div className="px-6 py-10">
-            <h2 className="text-center text-2xl font-serif tracking-wide text-black py-3 rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase tracking-widest">
+            <h2
+                className="flex items-center justify-center h-[48px] font-trajan text-[40px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
+            >
                 Best Selling
             </h2>
 
