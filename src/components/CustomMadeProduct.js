@@ -42,6 +42,7 @@ const CustomMadeProduct = () => {
 
                 <div className="mt-[50px] flex justify-center">
                     <button
+                        onClick={() => navigate('/contact')}
                         className='flex justify-center items-center w-[200px] h-[70px] text-center font-lato border border-green-900 bg-[#0D4017] text-white px-15 py-2 rounded-2xl cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 text-[24px]'
                     >
                         Contact us
