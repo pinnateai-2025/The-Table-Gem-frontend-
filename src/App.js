@@ -6,7 +6,7 @@ import Gifts from './pages/Gifts';
 import Collection from './pages/Collection';
 import CustomMade from './pages/CustomMade';
 import Contact from './pages/Contact';
-// import OurStory from './pages/OurStory';
+import OurStory from './pages/OurStory';
 // import ProductPage from './components/ProductPage';
 
 const App = () => (
@@ -18,7 +18,7 @@ const App = () => (
       <Route path="/collection" element={<Collection />} />
       <Route path="/custommade" element={<CustomMade />} />
       <Route path="/contact" element={<Contact />} />
-      {/* <Route path="/ourstory" element={<OurStory />} /> */}
+      <Route path="/ourstory" element={<OurStory />} />
       {/* <Route path="/productpage" element={<ProductPage />} /> */}
     </Routes>
   </Router>
