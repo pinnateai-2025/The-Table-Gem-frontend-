@@ -22,7 +22,7 @@ const Hero = () => {
                 loop
             />
 
-            <div className="absolute inset-0 z-10 hidden xl:flex justify-center mt-[70px]">
+            <div className="absolute inset-0 z-10 hidden xl:flex justify-center mt-[20px]">
                 <form onSubmit={handleSubmit} className="relative max-w-md">
                     <FaSearch
                         className="absolute top-1/2 left-7 transform -translate-y-1/2 z-50 text-white cursor-pointer w-[25px] h-[29px]"
