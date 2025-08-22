@@ -6,7 +6,7 @@ import Story from '../components/Story';
 const OurStory = () => {
     return (
         <Layout>
-            <SearchBar></SearchBar>
+            <SearchBar />
             <Slider1 />
             <Story />
         </Layout>

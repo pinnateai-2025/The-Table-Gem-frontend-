@@ -7,7 +7,7 @@ import Collection from './pages/Collection';
 import CustomMade from './pages/CustomMade';
 import Contact from './pages/Contact';
 import OurStory from './pages/OurStory';
-// import ProductPage from './components/ProductPage';
+import Products from "./pages/Products";
 
 const App = () => (
   <Router>
@@ -19,7 +19,7 @@ const App = () => (
       <Route path="/custommade" element={<CustomMade />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/ourstory" element={<OurStory />} />
-      {/* <Route path="/productpage" element={<ProductPage />} /> */}
+      <Route path="/productdetails" element={<Products />} />
     </Routes>
   </Router>
 );
