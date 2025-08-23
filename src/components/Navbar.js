@@ -111,7 +111,7 @@ const Navbar = () => {
             {/* Search Bar (visible if toggled) */}
             {showSearch && (
                 <div
-                    className="absolute top-[60px] left-0 w-full bg-white px-4 py-3 shadow-md z-40 
+                    className="absolute left-0 w-full bg-white px-4 py-3 shadow-md z-40 
         xl:top-[90px] xl:right-8 xl:left-auto xl:w-[300px] xl:rounded-md"
                 >
                     <input

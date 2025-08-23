@@ -17,12 +17,21 @@ const Home = () => (
         <TopBar />
         <Navbar />
         <HeroSection />
-        <CategoriesButton />
-        <Slider1/>
+
+        {/* Wrap in flex/column so we can reorder */}
+        <div className="flex flex-col">
+            <div className="order-2 md:order-1">
+                <CategoriesButton />
+            </div>
+            <div className="order-1 md:order-2">
+                <Slider1 />
+            </div>
+        </div>
+
         <NewArrivalSection />
-        <BestSelling/>
-        <SummerSale/>
-        <Slider2/>
+        <BestSelling />
+        <SummerSale />
+        <Slider2 />
         <SubscribeSection />
         <Footer1 />
         <Footer2 />

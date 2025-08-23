@@ -57,8 +57,8 @@ const Footer1 = () => {
       {/* Top Sections */}
       <div
         className={`${isMobile
-            ? "w-full grid grid-cols-1"
-            : "max-w-7xl mx-auto grid grid-cols-4 gap-12"
+          ? "w-full grid grid-cols-1"
+          : "max-w-7xl mx-auto grid grid-cols-4 gap-12"
           }`}
       >
         {sections.map((section, index) => {
@@ -89,8 +89,8 @@ const Footer1 = () => {
               >
                 <h3
                   className={`${isMobile
-                      ? ""
-                      : "flex items-center justify-center h-[48px] font-trajan text-[20px] font-normal tracking-[0.02em] text-black rounded-md shadow-sm bg-gradient-to-r from-white via-gray-300 to-white uppercase w-fit px-6"
+                    ? ""
+                    : "flex items-center justify-center h-[48px] font-trajan text-[20px] font-normal tracking-[0.02em] text-black rounded-md shadow-sm bg-gradient-to-r from-white via-gray-300 to-white uppercase w-fit px-6"
                     }`}
                   style={
                     isMobile
