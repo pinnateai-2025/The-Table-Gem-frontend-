@@ -110,12 +110,23 @@ const Navbar = () => {
 
             {/* Search Bar (visible if toggled) */}
             {showSearch && (
-                <div className="absolute top-[60px] left-0 w-full bg-white px-4 py-3 shadow-md z-40 
-                  xl:top-[90px] xl:right-8 xl:left-auto xl:w-[300px] xl:rounded-md">
+                <div
+                    className="absolute top-[60px] left-0 w-full bg-white px-4 py-3 shadow-md z-40 
+        xl:top-[90px] xl:right-8 xl:left-auto xl:w-[300px] xl:rounded-md"
+                >
                     <input
                         type="text"
-                        placeholder="Search..."
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0D4017]"
+                        placeholder="Search"
+                        className="w-full border-[1.5px] border-[rgba(13,64,23,1)] rounded-full px-4 py-2
+               focus:outline-none text-center placeholder-[rgba(13,64,23,1)]"
+                        style={{
+                            fontFamily: "Lato, sans-serif",
+                            fontWeight: 500,
+                            fontSize: "14px",
+                            lineHeight: "120%",
+                            letterSpacing: "0.02em",
+                            verticalAlign: "middle",
+                        }}
                     />
                 </div>
             )}
