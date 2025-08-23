@@ -69,7 +69,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile/Tablet Navbar (≤1024px) */}
-            <div className="xl:hidden flex justify-between items-center px-4 h-[60px] max-[426px]:h-[50px] max-[426px]:px-2">
+            <div className="xl:hidden flex justify-between items-center px-4 h-[60px] max-[426px]:h-[50px] max-[426px]:px-2 relative">
                 {/* Left: Menu & Search */}
                 <div className="flex items-center space-x-4 max-[426px]:space-x-2">
                     <button onClick={() => setMenuOpen(!menuOpen)}>
@@ -92,15 +92,19 @@ const Navbar = () => {
                     </button>
                 </div>
 
-                {/* Right: Icons + Logo */}
+                {/* Center: Logo */}
+                <div className="absolute left-1/2 transform -translate-x-1/2">
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        className="w-[50px] h-[50px] rounded-full object-cover max-[426px]:w-[30px] max-[426px]:h-[30px]"
+                    />
+                </div>
+
+                {/* Right: Icons */}
                 <div className="flex items-center space-x-4 max-[426px]:space-x-2">
-                    {/* Icons */}
-                    <img src={profile} alt="Profile" className="w-6 h-6 cursor-pointer max-[426px]:w-4 max-[426px]:h-4" />
                     <FaRegHeart size={22} className="hover:text-[#0D4017] w-6 h-6 max-[426px]:w-4 max-[426px]:h-4" />
                     <img src={cartIcon} alt="Cart" className="w-6 h-6 cursor-pointer max-[426px]:w-4 max-[426px]:h-4" />
-
-                    {/* Logo */}
-                    <img src={logo} alt="Logo" className="w-[50px] h-[50px] rounded-full object-cover max-[426px]:w-[30px] max-[426px]:h-[30px]" />
                 </div>
             </div>
 
@@ -118,16 +122,27 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             {menuOpen && (
-                <div className="lg:hidden bg-white px-6 py-4 shadow-md border-t z-40">
-                    {navLinks.map((link) => {
+                <div className="xl:hidden bg-white shadow-md z-40">
+
+                    {/* Profile Image at top (shifted right, no border below) */}
+                    <div className="py-3">
+                        <img
+                            src={profile}
+                            alt="Profile"
+                            className="w-6 h-6 ml-8 cursor-pointer max-[426px]:w-6 max-[426px]:h-6"
+                        />
+                    </div>
+
+                    {/* Navigation Links with dividers (no border on last one) */}
+                    {navLinks.map((link, index) => {
                         const isActive = location.pathname === link.path;
                         return (
                             <Link
                                 key={link.path}
                                 to={link.path}
                                 onClick={() => setMenuOpen(false)}
-                                className={`block py-2 px-3 rounded font-medium max-[426px]:text-[12px] ${isActive ? 'underline text-[#0D4017]' : 'text-[#0D4017]'
-                                    }`}
+                                className={`block py-3 pl-8 font-medium max-[426px]:text-[12px] ${isActive ? 'text-[#0D4017]' : 'text-[#0D4017]'
+                                    } ${index !== navLinks.length - 1 ? 'border-b border-[rgba(13,64,23,1)]' : ''}`}
                             >
                                 {link.label}
                             </Link>
