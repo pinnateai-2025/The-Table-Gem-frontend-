@@ -4,25 +4,27 @@ import ProductFilter from './ProductFilter';
 import img3 from "../image/img3.png";
 import imgHover from "../image/hover.jpg";
 
-const NewArrivalProductSection = () => {
-    const navigate = useNavigate();
+const products = Array.from({ length: 7 }, (_, i) => ({
+    id: i + 1,
+    title: "Ceramic Dinner Set of 6 Pcs",
+    originalPrice: 999,
+    price: 450,
+    image: img3,
+    hoverImage: imgHover,
+}));
 
-    const products = Array.from({ length: 7 }, (_, i) => ({
-        id: i + 1,
-        title: "Ceramic Dinner Set of 6 Pcs",
-        originalPrice: 999,
-        price: 450,
-        image: img3,
-        hoverImage: imgHover,
-    }));
+const NewArrivalProductSection = () => {
+
+    const navigate = useNavigate();
 
     return (
         <div className="w-full px-4 py-6">
             <h2
-                className="flex items-center justify-center h-[48px] font-trajan text-[40px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
+                className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
             >
                 New Arrivals
             </h2>
+
             <ProductFilter />
 
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-2 justify-items-center">

@@ -3,9 +3,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import img3 from "../image/img3.png";
 import imgHover from "../image/hover.jpg";
 
-const BestSelling = () => {
-
-    const products = Array.from({ length: 7 }, (_, i) => ({
+   const products = Array.from({ length: 7 }, (_, i) => ({
         id: i + 1,
         title: "Ceramic Dinner Set of 6 Pcs",
         originalPrice: 999,
@@ -14,12 +12,14 @@ const BestSelling = () => {
         hoverImage: imgHover,
     }));
 
+const BestSelling = () => {
+
     const navigate = useNavigate();
 
     return (
         <div className="px-6 py-10">
             <h2
-                className="flex items-center justify-center h-[48px] font-trajan text-[40px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
+                className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
             >
                 Best Selling
             </h2>
