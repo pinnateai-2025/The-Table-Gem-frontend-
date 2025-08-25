@@ -17,29 +17,6 @@ const CustomMadeProduct = () => {
             </h3>
             <div>
                 <p className="w-full text-base font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mb-2 px-4 sm:px-40">
-<<<<<<< HEAD
-                    At The Table Gem, we believe every piece should be as unique as you are. Whether you're seeking a one-of-a-kind tableware set for your home, a personalized gift, or bespoke items for your special event, we offer customisation tailored to your style and needs.
-                </p>
-
-                <p className="w-full text-base font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mt-5 px-4 sm:px-40">
-                    <span className="font-extrabold">Key Information:</span> <br />
-                        ○ Choose your favorite patterns, colors, or add a special message. <br />
-
-                        ○ Our artisans work with you to craft tableware that reflects your taste, ensuring quality and attention to detail in every item. <br />
-
-                        ○ Perfect for weddings, corporate events, or home décor upgrades. <br />
-
-                        No matter the occasion or requirement, our team is dedicated to transforming your ideas into beautiful, functional tableware.
-                </p>
-
-                <p className="w-full text-base font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mb-2 px-4 sm:px-40 mt-5">
-                    Please note: <br />
-
-                       ○ Custom orders may have additional production and delivery times depending on design complexity and quantity. <br />
-
-                       ○ Bulk order options are available — ideal for gifting, events, or business needs.
-                </p>
-=======
                     Lorem ipsum dolor sit amet. Non velit magni id corporis delectus aut distinctio perferendis eos harum repudiandae et sequi reprehenderit aut <br />
                     nihil ullam ut sunt alias. Vel quia excepturi eos obcaecati atque aut esse error hic minima inventore qui nemo doloremque hic dolore nobis.
                 </p>
@@ -57,7 +34,6 @@ const CustomMadeProduct = () => {
                     <span className="font-extrabold">Please note:</span> Lorem ipsum dolor sit amet. Non velit magni id corporis delectus aut distinctio perferendis eos harum repudiandae et sequi reprehenderit aut nihil ullam ut sunt alias. Vel quia excepturi eos obcaecati atque aut esse error hic minima inventore qui nemo doloremque hic dolore nobis.
                 </p>
 
->>>>>>> old/main
                 <h2
                     className="text-center font-lato font-bold text-[18px] leading-[120%] tracking-[0.02em] align-middle mt-10"
                 >

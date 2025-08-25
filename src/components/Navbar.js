@@ -69,11 +69,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile/Tablet Navbar (≤1024px) */}
-<<<<<<< HEAD
-            <div className="xl:hidden flex justify-between items-center px-4 h-[60px] max-[426px]:h-[50px] max-[426px]:px-2">
-=======
             <div className="xl:hidden flex justify-between items-center px-4 h-[60px] max-[426px]:h-[50px] max-[426px]:px-2 relative">
->>>>>>> old/main
                 {/* Left: Menu & Search */}
                 <div className="flex items-center space-x-4 max-[426px]:space-x-2">
                     <button onClick={() => setMenuOpen(!menuOpen)}>
@@ -96,17 +92,6 @@ const Navbar = () => {
                     </button>
                 </div>
 
-<<<<<<< HEAD
-                {/* Right: Icons + Logo */}
-                <div className="flex items-center space-x-4 max-[426px]:space-x-2">
-                    {/* Icons */}
-                    <img src={profile} alt="Profile" className="w-6 h-6 cursor-pointer max-[426px]:w-4 max-[426px]:h-4" />
-                    <FaRegHeart size={22} className="hover:text-[#0D4017] w-6 h-6 max-[426px]:w-4 max-[426px]:h-4" />
-                    <img src={cartIcon} alt="Cart" className="w-6 h-6 cursor-pointer max-[426px]:w-4 max-[426px]:h-4" />
-
-                    {/* Logo */}
-                    <img src={logo} alt="Logo" className="w-[50px] h-[50px] rounded-full object-cover max-[426px]:w-[30px] max-[426px]:h-[30px]" />
-=======
                 {/* Center: Logo */}
                 <div className="absolute left-1/2 transform -translate-x-1/2">
                     <img
@@ -120,20 +105,11 @@ const Navbar = () => {
                 <div className="flex items-center space-x-4 max-[426px]:space-x-2">
                     <FaRegHeart size={22} className="hover:text-[#0D4017] w-6 h-6 max-[426px]:w-4 max-[426px]:h-4" />
                     <img src={cartIcon} alt="Cart" className="w-6 h-6 cursor-pointer max-[426px]:w-4 max-[426px]:h-4" />
->>>>>>> old/main
                 </div>
             </div>
 
             {/* Search Bar (visible if toggled) */}
             {showSearch && (
-<<<<<<< HEAD
-                <div className="absolute top-[60px] left-0 w-full bg-white px-4 py-3 shadow-md z-40 
-                  xl:top-[90px] xl:right-8 xl:left-auto xl:w-[300px] xl:rounded-md">
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0D4017]"
-=======
                 <div
                     className="absolute left-0 w-full bg-white px-4 py-3 shadow-md z-40 
         xl:top-[90px] xl:right-8 xl:left-auto xl:w-[300px] xl:rounded-md"
@@ -151,17 +127,12 @@ const Navbar = () => {
                             letterSpacing: "0.02em",
                             verticalAlign: "middle",
                         }}
->>>>>>> old/main
                     />
                 </div>
             )}
 
             {/* Mobile Menu */}
             {menuOpen && (
-<<<<<<< HEAD
-                <div className="lg:hidden bg-white px-6 py-4 shadow-md border-t z-40">
-                    {navLinks.map((link) => {
-=======
                 <div className="xl:hidden bg-white shadow-md z-40">
 
                     {/* Profile Image at top (shifted right, no border below) */}
@@ -175,20 +146,14 @@ const Navbar = () => {
 
                     {/* Navigation Links with dividers (no border on last one) */}
                     {navLinks.map((link, index) => {
->>>>>>> old/main
                         const isActive = location.pathname === link.path;
                         return (
                             <Link
                                 key={link.path}
                                 to={link.path}
                                 onClick={() => setMenuOpen(false)}
-<<<<<<< HEAD
-                                className={`block py-2 px-3 rounded font-medium max-[426px]:text-[12px] ${isActive ? 'underline text-[#0D4017]' : 'text-[#0D4017]'
-                                    }`}
-=======
                                 className={`block py-3 pl-8 font-medium max-[426px]:text-[12px] ${isActive ? 'text-[#0D4017]' : 'text-[#0D4017]'
                                     } ${index !== navLinks.length - 1 ? 'border-b border-[rgba(13,64,23,1)]' : ''}`}
->>>>>>> old/main
                             >
                                 {link.label}
                             </Link>
