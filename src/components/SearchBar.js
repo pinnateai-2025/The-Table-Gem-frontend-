@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { CiSearch } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {

@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
