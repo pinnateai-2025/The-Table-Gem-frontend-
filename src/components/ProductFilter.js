@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Dropdown = ({ label, options, selected, onSelect }) => {
     const [isOpen, setIsOpen] = useState(false);
+       const dropdownRef = useRef(null);
+
+    // Close dropdown on outside click
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
-        <div className="relative inline-block text-left">
+        <div ref={dropdownRef} className="relative inline-block text-left">
             <button
                 type="button"
                 className="flex items-center gap-1 px-3 max-[500px]:px-1 py-1.5 max-[500px]:text-[14px] bg-white rounded-md hover:border-blue-500 transition-colors"
@@ -16,7 +31,7 @@ const Dropdown = ({ label, options, selected, onSelect }) => {
             </button>
 
             {isOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                <div className=" max-[500px]:w-[150px] origin-top-right absolute right-auto left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                     <div className="py-1" role="menu">
                         {options.map((option) => (
                             <button
