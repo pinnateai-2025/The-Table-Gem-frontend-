@@ -3,12 +3,13 @@ const ContactForm = () => {
 
     const navigate = useNavigate()
     return (
-        <div className="px-2 sm:px-6 py-10 mt-10">
+        <div className="px-2 py-10 max-[500px]:py-6 mt-10 max-[500px]:mt-6">
             <h2
-                className="flex items-center justify-center h-[48px] font-trajan text-[40px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
+                className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
             >
                 Contact
             </h2>
+
             <div className='mt-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto text-center'>
                 <div className="bg-gray-200 rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
                     <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Get in Touch with us</h3>
@@ -78,9 +79,9 @@ const ContactForm = () => {
                         </button>
                     </div>
 
-                    <div className="flex justify-center mt-[150px]">
+                    <div className="flex justify-center mt-[150px] w-full">
                         <button
-                            className="w-[110px] h-[40px] font-lato font-semibold text-[14px] leading-[120%] tracking-[0.02em] text-center align-middle border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
+                            className="flex items-center justify-center w-[110px] h-[40px] max-[500px]:w-[90px] max-[500px]:h-[30px] font-lato font-semibold text-[14px] max-[500px]:text-[12px] leading-[120%] tracking-[0.02em] border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
                             onClick={() => navigate('/')}
                         >
                             Back

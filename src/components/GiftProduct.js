@@ -28,14 +28,16 @@ const GiftProduct = () => {
 
             <ProductFilter />
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-2 justify-items-center">
+            <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-2 justify-items-center">
                 {products.map((product) => (
                     <div
                         key={product.id}
-                        className="bg-white p-3 rounded-lg  hover:shadow-md transition max-w-sm w-full"
+                        className="bg-white rounded-lg hover:shadow-md transition flex-shrink-0"
                     >
-                        <div className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] overflow-hidden shadow-md rounded-md relative group">
+                        {/* Image Section */}
+                        <div className="w-full h-[260px] max-[500px]:w-[100px] max-[500px]:h-[100px] max-[350px]:w-[90px] max-[350px]:h-[90px] overflow-hidden rounded-md relative group cursor-pointer">
                             <img
+                                onClick={() => navigate("/productpage")}
                                 src={product.image}
                                 alt={product.title}
                                 className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"
@@ -46,23 +48,24 @@ const GiftProduct = () => {
                                 className="absolute inset-0 w-full h-full object-cover rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                             />
                         </div>
+
                         {/* Product Info */}
-                        <div className="px-2 py-3">
-                            <div className="flex items-center justify-between">
+                        <div className="px-2 py-3 max-[500px]:px-0 max-[500px]:py-0">
+                            <div className="flex items-center justify-between max-[500px]:mt-2">
                                 {/* LEFT SIDE (Title + Prices) */}
-                                <div className="flex flex-col w-full">
+                                <div className="flex flex-col w-full max-[500px]:w-[100px] max-[350px]:w-[90px]">
                                     <div className="flex items-center justify-between">
-                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 md:text-[16px]">
+                                        <h3 className="text-base max-[500px]:text-[10px] max-[500px]:w-[80px] max-[500px]:leading-tight font-semibold text-gray-900">
                                             {product.title}
                                         </h3>
-                                        <FaRegHeart className="text-black text-[20px] hover:text-red-500 cursor-pointer ml-3" />
+                                        <FaRegHeart className="text-black text-[20px] max-[500px]:text-[12px] hover:text-red-500 cursor-pointer ml-3 max-[500px]:ml-[0px]" />
                                     </div>
 
-                                    <div className="flex flex-row gap-2 items-center mt-2">
-                                        <p className="text-[16px] text-red-700 line-through md:text-[12px]">
+                                    <div className="flex flex-row max-[500px]:flex-col max-[500px]:items-start gap-2 max-[500px]:gap-0 items-center mt-2 max-[500px]:mt-1">
+                                        <p className="text-[16px] max-[500px]:text-[10px] text-red-700 line-through md:text-[12px]">
                                             Rs. {product.originalPrice}.00
                                         </p>
-                                        <p className="text-[16px] font-medium text-green-800 md:text-[12px]">
+                                        <p className="text-[16px] max-[500px]:text-[10px] font-medium text-green-800 md:text-[12px]">
                                             Rs. {product.price}.00
                                         </p>
                                     </div>
@@ -70,8 +73,8 @@ const GiftProduct = () => {
                             </div>
 
                             {/* Actions */}
-                            <div className="mt-10 flex justify-between items-center md:mt-[16px]">
-                                <button className="border border-green-900 text-green-900 px-4 py-1 rounded hover:bg-green-900 hover:text-white transition w-full text-sm lg:text-xl">
+                            <div className="mt-10 max-[500px]:mt-2 flex justify-between items-center md:mt-[16px] max-[350px]:w-[90px]">
+                                <button className="border border-green-900 text-green-900 px-4 py-1 rounded hover:bg-green-900 hover:text-white transition w-full text-sm lg:text-xl max-[500px]:w-[100px] max-[500px]:text-[10px]">
                                     Add to cart
                                 </button>
                             </div>
@@ -82,7 +85,7 @@ const GiftProduct = () => {
 
             <div className="flex justify-center mt-[20px] w-full">
                 <button
-                    className="w-[110px] h-[40px] font-lato font-semibold text-[14px] leading-[120%] tracking-[0.02em] text-center align-middle border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
+                    className="flex items-center justify-center w-[110px] h-[40px] max-[500px]:w-[90px] max-[500px]:h-[30px] font-lato font-semibold text-[14px] max-[500px]:text-[12px] leading-[120%] tracking-[0.02em] border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
                     onClick={() => navigate('/')}
                 >
                     Back

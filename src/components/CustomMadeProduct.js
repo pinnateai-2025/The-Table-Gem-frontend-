@@ -6,7 +6,7 @@ const CustomMadeProduct = () => {
 
     return (
         <div className="px-2 sm:px-6 py-10 mt-10">
-             <h2
+            <h2
                 className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
             >
                 Custom Made
@@ -44,15 +44,15 @@ const CustomMadeProduct = () => {
                 <div className="mt-[50px] flex justify-center">
                     <button
                         onClick={() => navigate('/contact')}
-                        className='flex justify-center items-center w-[200px] h-[70px] max-[500px]:w-[150px] max-[500px]:h-[50px] text-center font-lato border border-green-900 bg-[#0D4017] text-white px-15 py-2 rounded-2xl cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 text-[24px] max-[500px]:text-[18px]'
+                        className='flex justify-center items-center w-[200px] h-[70px] max-[500px]:w-[150px] max-[500px]:h-[50px] max-[350px]:w-[120px] max-[350px]:h-[40px] font-lato border border-green-900 bg-[#0D4017] text-white px-15 py-2 rounded-2xl cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 text-[24px] max-[500px]:text-[18px] max-[350px]:text-[16px]'
                     >
                         Contact us
                     </button>
                 </div>
 
-                <div className="mt-[100px] flex justify-center">
+                <div className="flex justify-center mt-[100px] w-full">
                     <button
-                        className="w-[110px] h-[40px] font-lato font-semibold text-[14px] leading-[120%] tracking-[0.02em] text-center align-middle border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
+                        className="flex items-center justify-center w-[110px] h-[40px] max-[500px]:w-[90px] max-[500px]:h-[30px] font-lato font-semibold text-[14px] max-[500px]:text-[12px] leading-[120%] tracking-[0.02em] border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
                         onClick={() => navigate('/')}
                     >
                         Back

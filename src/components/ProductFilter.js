@@ -8,7 +8,7 @@ const Dropdown = ({ label, options, selected, onSelect }) => {
         <div className="relative inline-block text-left">
             <button
                 type="button"
-                className="flex items-center gap-1 px-3 py-1.5 bg-white rounded-md hover:border-blue-500 transition-colors"
+                className="flex items-center gap-1 px-3 max-[500px]:px-1 py-1.5 max-[500px]:text-[14px] bg-white rounded-md hover:border-blue-500 transition-colors"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {selected || label}
@@ -48,10 +48,10 @@ const ProductFilter = () => {
     const dateOptions = ['Newest First', 'Oldest First', 'Recently Updated'];
 
     return (
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 max-[500px]:gap-0 mb-6 max-[500px]:mb-4 px-4 max-[500px]:px-0">
 
             <div className="flex flex-wrap items-center gap-4">
-                <span className="text-black font-medium">Filter:</span>
+                <span className="text-black font-medium max-[500px]:text-[14px]">Filter:</span>
                 <div className="flex flex-wrap items-center gap-3 ml-1">
                     <Dropdown
                         label="Availability"
@@ -68,10 +68,9 @@ const ProductFilter = () => {
                 </div>
             </div>
 
-
             <div className="flex flex-wrap items-center gap-4">
                 <div className="flex items-center gap-2">
-                    <span className="text-black font-medium">Sort by:</span>
+                    <span className="text-black font-medium max-[500px]:text-[14px]">Sort by:</span>
                     <Dropdown
                         label="Date - Latest"
                         options={dateOptions}
@@ -79,7 +78,7 @@ const ProductFilter = () => {
                         onSelect={setDateSort}
                     />
                 </div>
-                <span className="text-black text-sm md:text-base">
+                <span className="text-black text-sm md:text-base font-medium">
                     58 Products
                 </span>
             </div>
