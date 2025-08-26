@@ -10,8 +10,8 @@ const ContactForm = () => {
                 Contact
             </h2>
 
-            <div className='mt-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto text-center'>
-                <div className="bg-gray-200 rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div className='mt-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto text-center max-[500px]:max-w-full max-[500px]:px-4'>
+                <div className="bg-gray-200 w-full rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
                     <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Get in Touch with us</h3>
                     <p className="text-gray-700 text-sm sm:text-base">
                         If you have a question or a comment, please<br />
@@ -20,12 +20,13 @@ const ContactForm = () => {
                     </p>
                 </div>
 
-                <div className="bg-gray-200 rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
+                <div className="bg-gray-200 w-full rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
                     <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Visit us</h3>
                     <p className="text-gray-700 text-sm sm:text-base">Mon-Fri 10:30am - 6:30pm</p>
                 </div>
 
-                <div className="bg-gray-200 rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
+                {/* Center this card when it's alone */}
+                <div className="bg-gray-200 w-full rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow md:col-span-2 lg:col-span-1 mx-auto">
                     <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Find our store</h3>
                     <p className="text-gray-700 text-sm sm:text-base">
                         <span className='font-bold'>The Table Gem</span><br />
@@ -34,7 +35,6 @@ const ContactForm = () => {
                     </p>
                 </div>
             </div>
-
 
             <div className="mt-[100px] flex items-center justify-center bg-white">
                 <form className="max-w-xl w-full bg-white rounded-lg">

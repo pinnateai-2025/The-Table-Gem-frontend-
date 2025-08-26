@@ -27,14 +27,14 @@ const CollectionProduct = () => {
 
             <ProductFilter />
 
-            <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-2 justify-items-center">
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-4 pb-2 justify-items-center">
                 {products.map((product) => (
                     <div
                         key={product.id}
                         className="bg-white rounded-lg hover:shadow-md transition flex-shrink-0"
                     >
                         {/* Image Section */}
-                        <div className="w-full h-[260px] max-[500px]:w-[100px] max-[500px]:h-[100px] max-[350px]:w-[90px] max-[350px]:h-[90px] overflow-hidden rounded-md relative group cursor-pointer">
+                        <div className="w-full h-[360px] max-[1024px]:h-[200px] max-[768px]:h-[250px] max-[500px]:w-[100px] max-[500px]:h-[100px] max-[350px]:w-[90px] max-[350px]:h-[90px] overflow-hidden rounded-md relative group cursor-pointer">
                             <img
                                 onClick={() => navigate("/productpage")}
                                 src={product.image}
@@ -53,11 +53,11 @@ const CollectionProduct = () => {
                             <div className="flex items-center justify-between max-[500px]:mt-2">
                                 {/* LEFT SIDE (Title + Prices) */}
                                 <div className="flex flex-col w-full max-[500px]:w-[100px] max-[350px]:w-[90px]">
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="text-base max-[500px]:text-[10px] max-[500px]:w-[80px] max-[500px]:leading-tight font-semibold text-gray-900">
+                                     <div className="flex items-center justify-between">
+                                        <h3 className="text-base max-[1024px]:text-[12px] max-[768px]:text-[14px] max-[500px]:text-[10px] max-[500px]:w-[80px] max-[500px]:leading-tight font-semibold text-gray-900">
                                             {product.title}
                                         </h3>
-                                        <FaRegHeart className="text-black text-[20px] max-[500px]:text-[12px] hover:text-red-500 cursor-pointer ml-3 max-[500px]:ml-[0px]" />
+                                        <FaRegHeart className="text-black text-[20px] max-[768px]:text-[16px] max-[500px]:text-[12px] hover:text-red-500 cursor-pointer ml-3 max-[500px]:ml-[0px]" />
                                     </div>
 
                                     <div className="flex flex-row max-[500px]:flex-col max-[500px]:items-start gap-2 max-[500px]:gap-0 items-center mt-2 max-[500px]:mt-1">

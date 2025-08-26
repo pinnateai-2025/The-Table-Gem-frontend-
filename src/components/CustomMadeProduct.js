@@ -17,21 +17,21 @@ const CustomMadeProduct = () => {
                 Yes! We can Customise your Orders.
             </h3>
             <div>
-                <p className="w-full text-base max-[500px]:text-[12px] font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mb-2 px-4 sm:px-40">
+                <p className="w-full text-base max-[500px]:text-[12px] font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mb-2 px-4">
                     Lorem ipsum dolor sit amet. Non velit magni id corporis delectus aut distinctio perferendis eos harum repudiandae et sequi reprehenderit aut <br />
                     nihil ullam ut sunt alias. Vel quia excepturi eos obcaecati atque aut esse error hic minima inventore qui nemo doloremque hic dolore nobis.
                 </p>
 
-                <p className="w-full text-base max-[500px]:text-[12px] font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mt-5 px-4 sm:px-40">
+                <p className="w-full text-base max-[500px]:text-[12px] font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mt-5 px-4">
                     <span className="font-extrabold">Key Information:</span> Lorem ipsum dolor sit amet. Non velit magni id corporis delectus aut distinctio perferendis eos harum repudiandae et sequi reprehenderit aut nihil ullam ut sunt alias. Vel quia excepturi eos obcaecati atque aut esse error hic minima inventore qui nemo doloremque hic dolore nobis.
                 </p>
 
-                <p className="w-full text-base max-[500px]:text-[12px] font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mb-2 px-4 sm:px-40 mt-5">
+                <p className="w-full text-base max-[500px]:text-[12px] font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mb-2 px-4 mt-5">
                     Lorem ipsum dolor sit amet. Non velit magni id corporis delectus aut distinctio perferendis eos harum repudiandae et sequi reprehenderit aut <br />
                     nihil ullam ut sunt alias. Vel quia excepturi eos obcaecati atque aut esse error hic minima inventore qui nemo doloremque hic dolore nobis.
                 </p>
 
-                <p className="w-full text-base max-[500px]:text-[12px] font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mb-2 px-4 sm:px-40 mt-5">
+                <p className="w-full text-base max-[500px]:text-[12px] font-lato font-semibold leading-[120%] tracking-[0.02em] text-center align-middle text-black mb-2 px-4 mt-5">
                     <span className="font-extrabold">Please note:</span> Lorem ipsum dolor sit amet. Non velit magni id corporis delectus aut distinctio perferendis eos harum repudiandae et sequi reprehenderit aut nihil ullam ut sunt alias. Vel quia excepturi eos obcaecati atque aut esse error hic minima inventore qui nemo doloremque hic dolore nobis.
                 </p>
 
