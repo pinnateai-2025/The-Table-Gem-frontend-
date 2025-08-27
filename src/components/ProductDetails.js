@@ -162,11 +162,11 @@ const ProductDetails = () => {
                     </div>
                     <div className="flex items-center mt-[40px] space-x-2">
                         {/* Icon */}
-                        <img src={Share} className="w-[16px] h-[16px]" />
+                        <img src={Share} alt="Share icon" className="w-[16px] h-[16px]" />
 
                         {/* Share Text */}
                         <a
-                            href="#"
+                            href="https://example.com/details"
                             className="font-lato font-semibold text-[16px] text-[rgba(255,1,1,1)]"
                         >
                             Share

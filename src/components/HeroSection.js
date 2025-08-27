@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CiSearch } from 'react-icons/ci';
+// import { CiSearch } from 'react-icons/ci';
 import { FaSearch } from "react-icons/fa";
 import HeroSectcionVideo from "../image/video.mp4";
 
