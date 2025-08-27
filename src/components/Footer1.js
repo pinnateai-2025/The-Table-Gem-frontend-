@@ -162,19 +162,19 @@ const Footer1 = () => {
           />
         </div>
         <div className="flex justify-center gap-3 lg:gap-10 text-lg md:text-base text-white">
-          <a href="#" className="bg-[#0D4017] p-4 rounded-full">
+          <a href="https://www.instagram.com/the_table_gem/" className="bg-[#0D4017] p-4 rounded-full">
             <FaInstagram />
           </a>
-          <a href="#" className="bg-[#0D4017] p-4 rounded-full">
+          <a href="https://www.facebook.com/the_table_gem/" className="bg-[#0D4017] p-4 rounded-full">
             <FaFacebook />
           </a>
-          <a href="#" className="bg-[#0D4017] p-4 rounded-full">
+          <a href="https://www.youtube.com/channel/UCW8g1g1g1g1g1g1g1g1g1g" className="bg-[#0D4017] p-4 rounded-full">
             <FaYoutube />
           </a>
-          <a href="#" className="bg-[#0D4017] p-4 rounded-full">
+          <a href="https://www.linkedin.com/company/the-table-gem/" className="bg-[#0D4017] p-4 rounded-full">
             <FaLinkedin />
           </a>
-          <a href="#" className="bg-[#0D4017] p-4 rounded-full">
+          <a href="mailto:info@thetablegem.com" className="bg-[#0D4017] p-4 rounded-full">
             <FaEnvelope />
           </a>
         </div>
