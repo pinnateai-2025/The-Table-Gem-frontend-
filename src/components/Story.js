@@ -25,35 +25,16 @@ const Story = () => {
                 {/* Text Section */}
                 <div className="text-justify space-y-4 p-2 text-[16px] text-black">
                     <p>
-                        <strong>The Table gem</strong> Lorem ipsum dolor sit amet. Sed molestias dolor sit
-                        inventore galisum et asperiores incidunt eum quidem repellat non architecto
-                        aliquam vel quod rerum qui voluptas minima.
+                        Hi there! I’m <strong>Shahinda Abid</strong>, and I founded <strong>The Table Gem</strong> in 2025 with a heartfelt vision: to create 
+                        a space where sustainability meets elegance in everyday living. What started as a simple idea—to make 
+                        eco-friendly choices more accessible—has blossomed into a brand dedicated to offering thoughtfully designed, 
+                        earth-conscious products.
                     </p>
                     <p>
-                        Quo quis quam et architecto tempore ea mollitia consequatur. Et maiores itaque sit
-                        architecto ipsam est eligendi illum 33 veniam deleniti id ipsa vero. Id animi perspiciatis
-                        est dolores nostrum aut fuga mollitia sit autem blanditiis est necessitatibus consequatur.
-                    </p>
-                    <p>
-                        Et minus impedit aut nulla eligendi ea dolores quam est voluptatum voluptatibus ut enim aspernatur.
-                        Ut esse corporis sit nesciunt nihil et itaque quod quo voluptatum culpa et aspernatur quia aut modi aspernatur.
-                    </p>
-                    <p>
-                        Ea delectus voluptas id tenetur aliquam ut repellat debitis quo cupiditate amet. Aut galisum debitis vel veritatis
-                        rerum et illo dolorem id velit voluptate non doloribus vitae. Ea rerum velit et galisum velit ab quia neque. Et
-                        facere quam sed deleniti rerum et aliquid laudantium et recusandae fuga et sunt quaerat et facilis facere
-                    </p>
-                    <p>
-                        Et illum omnis ut molestias cupiditate ut sunt sequi aut dignissimos dolor. Ad
-                        rerum ducimus eos doloremque quae et illo recusandae eos itaque iste.
-                    </p>
-                    <p>
-                        Qui cupiditate dolor qui possimus mollitia ut neque earum sit voluptatem debitis ea
-                        dolorem voluptates. Nam provident nisi id dolor earum qui enim officia.
-                    </p>
-                    <p>
-                        Aut quaerat quae At excepturi minus ut dolore sunt est nostrum veniam. Ut esse
-                        corporis sit nesciunt nihil et itaque quod quo voluptatum.
+                        At <strong>The Table Gem</strong>, every piece is crafted to reflect both beauty and responsibility. From eco-friendly tableware 
+                        to sustainable lifestyle essentials, our mission is to bring you products that not only elevate your home but 
+                        also nurture the planet. With a passionate team beside me, we work to deliver more than just products—we deliver 
+                        a movement towards conscious, sustainable living, where every choice makes a difference.
                     </p>
                 </div>
             </div>
