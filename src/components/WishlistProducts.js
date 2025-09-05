@@ -1,38 +1,25 @@
-import { FaHeart, FaRegHeart } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
-import ProductFilter from './ProductFilter';
-import img3 from "../image/img3.png";
-import imgHover from "../image/hover.jpg";
 import { useWishlist } from "../context/WishlistContext";
+import { FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const products = Array.from({ length: 7 }, (_, i) => ({
-    id: i + 1,
-    title: "Ceramic Dinner Set of 6 Pcs",
-    originalPrice: 999,
-    price: 450,
-    image: img3,
-    hoverImage: imgHover,
-}));
-
-const NewArrivalProductSection = () => {
-
+const WishlistProducts = () => {
     const { wishlist, toggleWishlist } = useWishlist();
-    const navigate = useNavigate();
+     const navigate = useNavigate();
 
-    const isLiked = (id) => wishlist.some((item) => item.id === id);
+    if (wishlist.length === 0) {
+        return <p className="text-center text-gray-600 mt-10 text-[26px]">Your wishlist is empty</p>;
+    }
 
     return (
-        <div className="w-full px-4 py-6">
+        <div className="w-full px-4 py-6 mt-8 max-[768px]:mt-6 max-[425px]:mt-2">
             <h2
                 className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
             >
-                New Arrivals
+                Wishlists
             </h2>
 
-            <ProductFilter />
-
-            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-4 pb-2 justify-items-center">
-                {products.map((product) => (
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-4 pb-2 justify-items-center mt-16 max-[768px]:mt-10 max-[425px]:mt-7">
+                {wishlist.map((product) => (
                     <div
                         key={product.id}
                         className="bg-white rounded-lg hover:shadow-md transition flex-shrink-0"
@@ -40,7 +27,7 @@ const NewArrivalProductSection = () => {
                         {/* Image Section */}
                         <div className="w-full h-[360px] max-[1024px]:h-[200px] max-[768px]:h-[250px] max-[500px]:w-[100px] max-[500px]:h-[100px] max-[350px]:w-[90px] max-[350px]:h-[90px] overflow-hidden rounded-md relative group cursor-pointer">
                             <img
-                                onClick={() => navigate("/productdetails")}
+                                 onClick={() => navigate("/productdetails")}
                                 src={product.image}
                                 alt={product.title}
                                 className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"
@@ -61,15 +48,11 @@ const NewArrivalProductSection = () => {
                                         <h3 className="text-base max-[1024px]:text-[12px] max-[768px]:text-[14px] max-[500px]:text-[10px] max-[500px]:w-[80px] max-[500px]:leading-tight font-semibold text-gray-900">
                                             {product.title}
                                         </h3>
-                                        <div onClick={() => toggleWishlist(product)}>
-                                            {isLiked(product.id) ? (
-                                                <FaHeart className="text-red-500 text-[20px] cursor-pointer" />
-                                            ) : (
-                                                <FaRegHeart className="text-black text-[20px] hover:text-red-500 cursor-pointer" />
-                                            )}
-                                        </div>
+                                        <FaHeart
+                                            className="text-red-500 text-[20px] cursor-pointer"
+                                            onClick={() => toggleWishlist(product)}
+                                        />
                                     </div>
-
                                     <div className="flex flex-row max-[500px]:flex-col max-[500px]:items-start gap-2 max-[500px]:gap-0 items-center mt-2 max-[500px]:mt-1">
                                         <p className="text-[16px] max-[500px]:text-[10px] text-red-700 line-through md:text-[12px]">
                                             Rs. {product.originalPrice}.00
@@ -104,4 +87,4 @@ const NewArrivalProductSection = () => {
     );
 };
 
-export default NewArrivalProductSection;
+export default WishlistProducts;

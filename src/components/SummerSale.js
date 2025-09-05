@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import imgHover from "../image/hover.jpg";
 import img3 from "../image/img3.png";
+import { useWishlist } from "../context/WishlistContext";
 
 const products = Array.from({ length: 7 }, (_, i) => ({
     id: i + 1,
@@ -14,7 +15,10 @@ const products = Array.from({ length: 7 }, (_, i) => ({
 
 const SummerSale = () => {
 
-    const navigate = useNavigate()
+    const { wishlist, toggleWishlist } = useWishlist();
+    const navigate = useNavigate();
+
+    const isLiked = (id) => wishlist.some((item) => item.id === id);
 
     return (
         <div className="px-6 py-10 max-[500px]:py-5">
@@ -34,7 +38,7 @@ const SummerSale = () => {
                         {/* Image Section */}
                         <div className="w-full h-[260px] max-[1024px]:w-[210px] max-[1024px]:h-[210px] max-[768px]:w-[200px] max-[768px]:h-[200px] max-[500px]:w-[100px] max-[500px]:h-[100px] overflow-hidden rounded-md relative group cursor-pointer">
                             <img
-                                onClick={() => navigate("/productpage")}
+                                 onClick={() => navigate("/productdetails")}
                                 src={product.image}
                                 alt={product.title}
                                 className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"
@@ -42,7 +46,7 @@ const SummerSale = () => {
                             <img
                                 src={product.hoverImage}
                                 alt={`${product.title} hover`}
-                                className="absolute inset-0 w-full h-full object-cover rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                className="absolute inset-0 w-full h-full object-cover rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                             />
                         </div>
 
@@ -55,7 +59,13 @@ const SummerSale = () => {
                                         <h3 className="text-base max-[1024px]:text-[12px] max-[768px]:text-[14px] max-[500px]:text-[10px] max-[500px]:w-[80px] max-[500px]:leading-tight font-semibold text-gray-900">
                                             {product.title}
                                         </h3>
-                                        <FaRegHeart className="text-black text-[20px] max-[1024px]:text-[12px] max-[500px]:text-[12px] hover:text-red-500 cursor-pointer ml-3 max-[500px]:ml-[0px]" />
+                                        <div onClick={() => toggleWishlist(product)}>
+                                            {isLiked(product.id) ? (
+                                                <FaHeart className="text-red-500 text-[20px] cursor-pointer" />
+                                            ) : (
+                                                <FaRegHeart className="text-black text-[20px] hover:text-red-500 cursor-pointer" />
+                                            )}
+                                        </div>
                                     </div>
 
                                     <div className="flex flex-row max-[500px]:flex-col max-[500px]:items-start gap-2 max-[500px]:gap-0 items-center mt-2 max-[500px]:mt-1">

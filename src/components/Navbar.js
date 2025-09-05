@@ -65,7 +65,9 @@ const Navbar = () => {
                     <Link to="/register">
                         <img src={profile} alt="Profile" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
                     </Link>
-                    <img src={fav} alt="Fav" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
+                    <Link to="/wishlist">
+                        <img src={fav} alt="Fav" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
+                    </Link>
                     <img src={cartIcon} alt="Cart" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
                 </div>
             </div>
@@ -105,7 +107,9 @@ const Navbar = () => {
 
                 {/* Right: Icons */}
                 <div className="flex items-center space-x-4 max-[426px]:space-x-2">
-                    <FaRegHeart size={22} className="hover:text-[#0D4017] w-6 h-6 max-[426px]:w-4 max-[426px]:h-4" />
+                    <Link to="/wishlist">
+                        <FaRegHeart size={22} className="hover:text-[#0D4017] w-6 h-6 max-[426px]:w-4 max-[426px]:h-4" />
+                    </Link>
                     <img src={cartIcon} alt="Cart" className="w-6 h-6 cursor-pointer max-[426px]:w-4 max-[426px]:h-4" />
                 </div>
             </div>
