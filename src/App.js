@@ -8,6 +8,7 @@ import CustomMade from './pages/CustomMade';
 import Contact from './pages/Contact';
 import OurStory from './pages/OurStory';
 import Products from "./pages/Products";
+import Register from "./pages/Register";
 
 const App = () => (
   <Router>
@@ -20,6 +21,7 @@ const App = () => (
       <Route path="/contact" element={<Contact />} />
       <Route path="/ourstory" element={<OurStory />} />
       <Route path="/productdetails" element={<Products />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   </Router>
 );

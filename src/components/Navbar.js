@@ -62,7 +62,9 @@ const Navbar = () => {
 
                 {/* Icons */}
                 <div className="flex items-center absolute right-0 px-6 lg:px-8 space-x-3 lg:space-x-4">
-                    <img src={profile} alt="Profile" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
+                    <Link to="/register">
+                        <img src={profile} alt="Profile" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
+                    </Link>
                     <img src={fav} alt="Fav" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
                     <img src={cartIcon} alt="Cart" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
                 </div>
@@ -137,11 +139,13 @@ const Navbar = () => {
 
                     {/* Profile Image at top (shifted right, no border below) */}
                     <div className="py-3">
-                        <img
-                            src={profile}
-                            alt="Profile"
-                            className="w-6 h-6 ml-8 cursor-pointer max-[426px]:w-6 max-[426px]:h-6"
-                        />
+                        <Link to="/register">
+                            <img
+                                src={profile}
+                                alt="Profile"
+                                className="w-6 h-6 ml-8 cursor-pointer max-[426px]:w-6 max-[426px]:h-6"
+                            />
+                        </Link>
                     </div>
 
                     {/* Navigation Links with dividers (no border on last one) */}
