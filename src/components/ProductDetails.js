@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import Image10 from "../image/img10.png";
 import Image12 from "../image/img12.png";
 import Image13 from "../image/img13.jpg";
@@ -7,21 +7,33 @@ import { useNavigate } from "react-router-dom";
 import Share from "../image/share.png";
 import img3 from "../image/img3.png";
 import imgHover from "../image/hover.jpg";
+import { useWishlist } from "../context/WishlistContext";
+import { useLocation } from "react-router-dom";
+
+const products = Array.from({ length: 7 }, (_, i) => ({
+    id: i + 1,
+    title: "Ceramic Dinner Set of 6 Pcs",
+    originalPrice: 999,
+    price: 450,
+    image: img3,
+    hoverImage: imgHover,
+}));
 
 const ProductDetails = () => {
     const images = [Image10, Image12, Image13]
     const [mainImage, setMainImage] = useState(images[0]);
     const [quantity, setQuantity] = useState(1);
+    const { wishlist, toggleWishlist } = useWishlist();
     const navigate = useNavigate()
 
-    const products = Array.from({ length: 7 }, (_, i) => ({
-        id: i + 1,
-        title: "Ceramic Dinner Set of 6 Pcs",
-        originalPrice: 999,
-        price: 450,
-        image: img3,
-        hoverImage: imgHover,
-    }));
+    const isLiked = (id) => wishlist.some((item) => item.id === id);
+
+    const { state } = useLocation();
+    const product = state?.product;
+
+    if (!product) {
+        return <p className="text-center text-gray-600 mt-10 text-[26px]">No product selected</p>;
+    }
 
     return (
         <>
@@ -57,27 +69,27 @@ const ProductDetails = () => {
                     <div className="relative">
                         {/* Title */}
                         <h1 className="font-lato font-semibold text-[36px] leading-[120%] tracking-[0.02em] text-black">
-                            Ceramic Dinner Set of 6 Pcs
+                            {product.title}
                         </h1>
 
                         {/* Price Section */}
                         <div className="flex items-center mt-2">
                             <span className="font-lato font-semibold text-[16px] leading-[120%] tracking-[0.02em] text-gray-400 line-through">
-                                Rs. 999.00
+                                Rs. {product.price}
                             </span>
                             <span className="font-lato font-semibold text-[20px] leading-[120%] tracking-[0.02em] text-black ml-3">
-                                Rs. 450.00
+                                Rs. {product.originalPrice}
                             </span>
                         </div>
 
                         {/* Heart Icon */}
-                        <FaRegHeart
-                            className="absolute right-0 mt-2 hover:text-red-500"
-                            style={{
-                                width: "28px",
-                                height: "27px",
-                            }}
-                        />
+                        <div onClick={() => toggleWishlist(product)}>
+                            {isLiked(product.id) ? (
+                                <FaHeart className="w-[28px] h-[27px] text-red-500 text-[20px] cursor-pointer absolute right-0 hover:text-red-500" />
+                            ) : (
+                                <FaRegHeart className="w-[28px] h-[27px] text-black text-[20px] hover:text-red-500 cursor-pointer absolute right-0" />
+                            )}
+                        </div>
                     </div>
 
                     <div className="flex flex-col space-y-2">
@@ -189,9 +201,9 @@ const ProductDetails = () => {
                             className="bg-white rounded-lg hover:shadow-md transition flex-shrink-0 
                         w-[calc(42vw-1rem)] sm:w-[calc(50vw-1rem)] md:w-[250px] lg:w-[22%]"
                         >
-                            <div className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] overflow-hidden rounded-md relative group">
+                            <div className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] overflow-hidden rounded-md relative group cursor-pointer">
                                 <img
-                                    onClick={() => navigate('/productpage')}
+                                    onClick={() => navigate("/productdetails", { state: { product } })}
                                     src={product.image}
                                     alt={product.title}
                                     className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"
@@ -209,7 +221,13 @@ const ProductDetails = () => {
                                         <h3 className="text-base sm:text-lg font-semibold text-gray-900 md:text-[16px]">
                                             {product.title}
                                         </h3>
-                                        <FaRegHeart className="text-black text-[20px] hover:text-red-500 cursor-pointer ml-3" />
+                                        <div onClick={() => toggleWishlist(product)}>
+                                            {isLiked(product.id) ? (
+                                                <FaHeart className="text-red-500 text-[20px] cursor-pointer" />
+                                            ) : (
+                                                <FaRegHeart className="text-black text-[20px] hover:text-red-500 cursor-pointer" />
+                                            )}
+                                        </div>
                                     </div>
 
                                     <div className="flex flex-row gap-2 items-center mt-2">

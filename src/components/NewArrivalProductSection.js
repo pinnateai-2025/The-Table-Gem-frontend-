@@ -40,7 +40,7 @@ const NewArrivalProductSection = () => {
                         {/* Image Section */}
                         <div className="w-full h-[360px] max-[1024px]:h-[200px] max-[768px]:h-[250px] max-[500px]:w-[100px] max-[500px]:h-[100px] max-[350px]:w-[90px] max-[350px]:h-[90px] overflow-hidden rounded-md relative group cursor-pointer">
                             <img
-                                onClick={() => navigate("/productdetails")}
+                                onClick={() => navigate("/productdetails", { state: { product } })}
                                 src={product.image}
                                 alt={product.title}
                                 className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"

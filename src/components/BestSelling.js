@@ -38,7 +38,7 @@ const BestSelling = () => {
                         {/* Image Section */}
                         <div className="w-full h-[260px] max-[1024px]:w-[210px] max-[1024px]:h-[210px] max-[768px]:w-[200px] max-[768px]:h-[200px] max-[500px]:w-[100px] max-[500px]:h-[100px] overflow-hidden rounded-md relative group cursor-pointer">
                             <img
-                                 onClick={() => navigate("/productdetails")}
+                                onClick={() => navigate("/productdetails", { state: { product } })}
                                 src={product.image}
                                 alt={product.title}
                                 className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"
