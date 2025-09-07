@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const WishlistProducts = () => {
     const { wishlist, toggleWishlist } = useWishlist();
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
     if (wishlist.length === 0) {
         return <p className="text-center text-gray-600 mt-10 text-[26px]">Your wishlist is empty</p>;
@@ -25,9 +25,9 @@ const WishlistProducts = () => {
                         className="bg-white rounded-lg hover:shadow-md transition flex-shrink-0"
                     >
                         {/* Image Section */}
-                        <div className="w-full h-[360px] max-[1024px]:h-[200px] max-[768px]:h-[250px] max-[500px]:w-[100px] max-[500px]:h-[100px] max-[350px]:w-[90px] max-[350px]:h-[90px] overflow-hidden rounded-md relative group cursor-pointer">
+                        <div className="w-[360px] h-[360px] max-[1024px]:w-[220px] max-[1024px]:h-[200px] max-[768px]:h-[250px] max-[500px]:w-[120px] max-[500px]:h-[120px] max-[375px]:w-[100px] max-[375px]:h-[100px]  max-[320px]:w-[90px] max-[320px]:h-[90px] overflow-hidden rounded-md relative group cursor-pointer">
                             <img
-                                 onClick={() => navigate("/productdetails")}
+                                onClick={() => navigate("/productdetails")}
                                 src={product.image}
                                 alt={product.title}
                                 className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"
@@ -55,7 +55,7 @@ const WishlistProducts = () => {
                                     </div>
                                     <div className="flex flex-row max-[500px]:flex-col max-[500px]:items-start gap-2 max-[500px]:gap-0 items-center mt-2 max-[500px]:mt-1">
                                         <p className="text-[16px] max-[500px]:text-[10px] text-red-700 line-through md:text-[12px]">
-                                            Rs. {product.originalPrice}.00
+                                            {/* Rs. {product.originalPrice}.00 */}
                                         </p>
                                         <p className="text-[16px] max-[500px]:text-[10px] font-medium text-green-800 md:text-[12px]">
                                             Rs. {product.price}.00

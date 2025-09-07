@@ -11,6 +11,8 @@ import Products from "./pages/Products";
 import Register from "./pages/Register";
 import Wishlist from "./pages/Wishlist";
 import { WishlistProvider } from "./context/WishlistContext";
+import Serveware from "./pages/Serveware";
+import Platter from "./pages/Platter";
 
 const App = () => (
   <Router>
@@ -26,6 +28,8 @@ const App = () => (
         <Route path="/productdetails" element={<Products />} />
         <Route path="/register" element={<Register />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/serveware" element={<Serveware />} />
+        <Route path="/serveware/platter" element={<Platter />} />
       </Routes>
     </WishlistProvider>
   </Router>
