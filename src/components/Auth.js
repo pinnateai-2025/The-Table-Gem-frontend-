@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const Auth = ({ type }) => {
+  // const [isLogining, setIsLogining] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -9,6 +10,22 @@ const Auth = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(type === "login");
+
+  // Sync with URL in case user toggles
+  useEffect(() => {
+    setIsLogin(location.pathname.includes("/login"));
+  }, [location.pathname]);
+
+  const toggleForm = () => {
+    if (isLogin) {
+      navigate("/register/signup");
+    } else {
+      navigate("/register/login");
+    }
+  };
 
   const validateEmail = (e) => {
     const emailValue = e.target.value;
@@ -131,7 +148,7 @@ const Auth = () => {
         <p className="text-center mt-4 text-gray-600">
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <button
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={toggleForm}
             className="text-[rgba(13,64,23,1)] font-semibold hover:underline"
           >
             {isLogin ? "Sign Up" : "Login"}
