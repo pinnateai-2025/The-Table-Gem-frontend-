@@ -25,16 +25,20 @@ const Story = () => {
                 {/* Text Section */}
                 <div className="text-justify space-y-4 p-2 text-[16px] text-black">
                     <p>
-                        Hi there! I’m <strong>Shahinda Abid</strong>, and I founded <strong>The Table Gem</strong> in 2025 with a heartfelt vision: to create 
-                        a space where sustainability meets elegance in everyday living. What started as a simple idea—to make 
-                        eco-friendly choices more accessible—has blossomed into a brand dedicated to offering thoughtfully designed, 
-                        earth-conscious products.
+                        Hi there, I’m <strong>Shahinda Abid</strong>, and <strong>The Table Gem</strong> is a dream that grew straight from my heart.
                     </p>
                     <p>
-                        At <strong>The Table Gem</strong>, every piece is crafted to reflect both beauty and responsibility. From eco-friendly tableware 
-                        to sustainable lifestyle essentials, our mission is to bring you products that not only elevate your home but 
-                        also nurture the planet. With a passionate team beside me, we work to deliver more than just products—we deliver 
-                        a movement towards conscious, sustainable living, where every choice makes a difference.
+                        I’ve always believed that the things we bring into our homes should carry more than just beauty—they should hold meaning, care,
+                        and responsibility. In 2025, I turned this belief into a journey by starting The Table Gem, with the hope of making eco-friendly
+                        living not only accessible but also elegant and joyful.
+                    </p>
+                    <p>
+                        What began as a small idea at my table has now become a community that celebrates mindful choices and sustainable living. Every
+                        product we create is a reflection of my vision—to design pieces that bring warmth to your home while also being gentle on the Earth.
+                    </p>
+                    <p>
+                        For me, The Table Gem is not just a brand—it’s a reminder that little choices add up, and together, they can shape a more beautiful,
+                        conscious world.
                     </p>
                 </div>
             </div>
