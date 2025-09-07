@@ -8,9 +8,9 @@ import logo from "../image/logo.png";
 
 const navLinks = [
     { path: '/', label: 'HOME' },
-    { path: '/newarrival', label: 'NEW ARRIVAL' },
-    { path: '/gifts', label: 'GIFTS' },
-    { path: '/collection', label: 'COLLECTION' },
+    { path: '/newarrival', label: 'NEW ARRIVAL', disabled: true },
+    { path: '/gifts', label: 'GIFTS', disabled: true },
+    { path: '/collection', label: 'COLLECTION', disabled: true },
     { path: '/custommade', label: 'CUSTOM MADE' },
     { path: '/contact', label: 'CONTACT' },
     { path: '/ourstory', label: 'OUR STORY' },
@@ -45,7 +45,14 @@ const Navbar = () => {
                   text-sm lg:text-base font-medium">
                     {navLinks.map((link) => {
                         const isActive = location.pathname === link.path;
-                        return (
+                        return link.disabled ? (
+                            <span
+                                key={link.path}
+                                className="cursor-not-allowed pointer-events-none"
+                            >
+                                {link.label}
+                            </span>
+                        ) : (
                             <Link
                                 key={link.path}
                                 to={link.path}
@@ -155,13 +162,22 @@ const Navbar = () => {
                     {/* Navigation Links with dividers (no border on last one) */}
                     {navLinks.map((link, index) => {
                         const isActive = location.pathname === link.path;
-                        return (
+                        return link.disabled ? (
+                            <span
+                                key={link.path}
+                                className={`block py-3 text-[#0D4017] pl-8 font-medium cursor-not-allowed pointer-events-none ${index !== navLinks.length - 1 ? 'border-b border-[rgba(13,64,23,1)]' : ''
+                                    }`}
+                            >
+                                {link.label}
+                            </span>
+                        ) : (
                             <Link
                                 key={link.path}
                                 to={link.path}
                                 onClick={() => setMenuOpen(false)}
-                                className={`block py-3 pl-8 font-medium max-[426px]:text-[12px] ${isActive ? 'text-[#0D4017]' : 'text-[#0D4017]'
-                                    } ${index !== navLinks.length - 1 ? 'border-b border-[rgba(13,64,23,1)]' : ''}`}
+                                className={`block py-3 pl-8 font-medium ${isActive ? 'text-[#0D4017]' : 'text-[#0D4017]'
+                                    } ${index !== navLinks.length - 1 ? 'border-b border-[rgba(13,64,23,1)]' : ''
+                                    }`}
                             >
                                 {link.label}
                             </Link>
