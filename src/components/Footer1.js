@@ -41,10 +41,10 @@ const Footer1 = () => {
       title: 'Our Office',
       items: [
         'THE TABLE GEM',
-        '4456 Ground Floor, Sector 20, Gurgaon, Haryana-123456.',
+        'Ashok Rajpath, Patna, Bihar - 800004',
         'Mon-Fri: 10:30am – 06:30pm',
-        'Tel: +91-9123456789',
-        'Email: query@thetablegem.in',
+        'Tel: +91-8051550460',
+        'Email: thetablegem@gmail.com',
       ],
     },
   ];
