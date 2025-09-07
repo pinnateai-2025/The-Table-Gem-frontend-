@@ -15,8 +15,8 @@ const ContactForm = () => {
                     <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Get in Touch with us</h3>
                     <p className="text-gray-700 text-sm sm:text-base">
                         If you have a question or a comment, please<br />
-                        Call: <a href="tel:+919123456789" className="text-blue-600 hover:underline">+91-9123456789</a><br />
-                        Mail: <a href="mailto:query@tablegem.com" className="text-blue-600 hover:underline">query@tablegem.com</a>
+                        Call: <a href="tel:+918051550460" className="text-blue-600 hover:underline">+91-8051550460</a><br />
+                        Mail: <a href="mailto:thetablegem@gmail.com" className="text-blue-600 hover:underline">thetablegem@gmail.com</a>
                     </p>
                 </div>
 
@@ -30,8 +30,7 @@ const ContactForm = () => {
                     <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Find our store</h3>
                     <p className="text-gray-700 text-sm sm:text-base">
                         <span className='font-bold'>The Table Gem</span><br />
-                        456 ground floor,<br />
-                        sector-20 gurgaon-Haryana-123456
+                        Openning Soon
                     </p>
                 </div>
             </div>
