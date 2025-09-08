@@ -21,7 +21,15 @@ const Home = () => (
         {/* Wrap in flex/column so we can reorder */}
         <div className="flex flex-col">
             <div className="order-2 md:order-1">
-                <CategoriesButton />
+                <CategoriesButton
+                    categories={[
+                        { name: "Coffee Mugs", disabled: true },
+                        { name: "Serveware", path: "/serveware" },
+                        { name: "Drinkware", disabled: true },
+                        { name: "Tableware", disabled: true },
+                        { name: "Kitchenware", disabled: true },
+                    ]}
+                />
             </div>
             <div className="order-1 md:order-2">
                 <Slider1 />

@@ -2,9 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useWishlist } from "../context/WishlistContext";
+import CategoriesButton from "./CategoriesButton";
 
 const ServewareProduct = () => {
-  const subCategories = ["Plates", "Serving Set", "Bowls", "Platter"];
+  const subCategories = [
+    { name: "Plates", disabled: true },
+    { name: "Serving Set", disabled: true },
+    { name: "Bowls", disabled: true },
+    { name: "Platter", path: "/serveware/platter" },
+  ];
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -21,53 +28,43 @@ const ServewareProduct = () => {
     const fetchProducts = async () => {
       try {
         const res = await fetch(`${API_URL}/products`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const data = await res.json();
+        console.log("API Response:", data);
 
+        // Adjust depending on actual response structure
         if (Array.isArray(data)) {
           setProducts(data);
-        } else if (data?.data) {
+        } else if (data?.data && Array.isArray(data.data)) {
           setProducts(data.data);
+        } else if (data?.products && Array.isArray(data.products)) {
+          setProducts(data.products);
+        } else {
+          console.warn("Unexpected API response:", data);
+          setProducts([]); // fallback
         }
       } catch (err) {
         console.error("Error fetching products:", err);
+        setProducts([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    if (API_URL) {
+      fetchProducts();
+    } else {
+      console.error("API_URL is missing! Check your .env file");
+      setLoading(false);
+    }
   }, [API_URL]);
 
   return (
     <div className="w-full">
       {/* Sub-category buttons */}
-      <div className="bg-white w-full flex items-center justify-center py-6 px-3 sm:py-6 sm:px-4 md:py-10 md:px-5">
-        <div
-          className="
-            flex gap-4 overflow-x-auto no-scrollbar
-            sm:gap-6
-            md:gap-8
-            lg:grid lg:grid-cols-4 lg:gap-8 lg:overflow-visible lg:w-full
-          "
-        >
-          {subCategories.map((sub) => (
-            <button
-              key={sub}
-              onClick={() => sub === "Platter" && navigate("/serveware/platter", { state: { products } })}
-              className={`
-      bg-[#0f2e0f] text-white text-sm sm:text-base md:text-lg lg:text-xl font-semibold
-      rounded-[15px] px-4 py-2 sm:px-6 sm:py-3 border border-[#6b6b4f]
-      hover:bg-white hover:text-[#0f2e0f] hover:border-[#0f2e0f] hover:border-[3px]
-      transition duration-300 min-w-[120px] sm:min-w-[150px] md:min-w-[200px]
-      h-[50px] sm:h-[60px] flex-shrink-0 lg:min-w-0 lg:w-full
-      ${sub === "Platter" ? "cursor-pointer" : "pointer-events-none"}
-    `}
-            >
-              {sub}
-            </button>
-          ))}
-        </div>
-      </div>
+      <CategoriesButton categories={subCategories} />
 
       {/* Products Section */}
       <div className="px-6 py-10 max-[500px]:py-5">

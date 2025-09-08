@@ -2,6 +2,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useWishlist } from "../context/WishlistContext";
 import ProductFilter from "./ProductFilter";
+import { useEffect, useState } from "react";
 
 const PlatterProducts = () => {
 
@@ -10,7 +11,22 @@ const PlatterProducts = () => {
     const { wishlist, toggleWishlist } = useWishlist();
 
     // Products passed from ServewareProduct
-    const products = location.state?.products || [];
+    const [products, setProducts] = useState(location.state?.products || []);
+    const API_URL = process.env.REACT_APP_API_URL;
+
+    useEffect(() => {
+        if (!products.length) {
+            // Fetch only platter products if state is empty
+            fetch(`${API_URL}/products?category=platter`)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (Array.isArray(data)) setProducts(data);
+                    else if (data?.data) setProducts(data.data);
+                    else if (data?.products) setProducts(data.products);
+                })
+                .catch((err) => console.error("Error fetching platter products", err));
+        }
+    }, [products.length, API_URL]);
 
     const isLiked = (id) => wishlist.some((item) => item.id === id);
 
