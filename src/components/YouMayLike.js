@@ -38,7 +38,7 @@ const YouMayLike = () => {
   }, [API_URL]);
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-20">
 
       {/* Products Section */}
       <div className="px-6 py-10 max-[500px]:py-5">
