@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useWishlist } from "../context/WishlistContext";
 
-const SummerSale = () => {
+const YouMayLike = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,7 +45,7 @@ const SummerSale = () => {
         <h2
           className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
         >
-          Best Selling
+          You May Also Like
         </h2>
 
         {loading ? (
@@ -125,16 +125,16 @@ const SummerSale = () => {
       </div>
 
       {/* View All Button */}
-      {/* <div className="flex justify-center mb-10 w-full">
+      <div className="flex justify-center mb-10 w-full">
         <button
           onClick={() => navigate("/serveware/platter", { state: { products } })}
           className="w-[140px] h-[40px] max-[500px]:w-[100px] max-[500px]:h-[30px] max-[500px]:text-[14px] flex items-center justify-center border border-green-900 py-2 px-10 max-[500px]:px-5 rounded bg-[#0D4017] text-white transition hover:bg-white hover:text-green-900"
         >
           View All
         </button>
-      </div> */}
+      </div>
     </div>
   );
 };
 
-export default SummerSale;
+export default YouMayLike;

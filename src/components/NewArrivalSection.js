@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useWishlist } from "../context/WishlistContext";
 
-const ServewareProduct = () => {
+const NewArrivalSection = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -137,4 +137,4 @@ const ServewareProduct = () => {
   );
 };
 
-export default ServewareProduct;
+export default NewArrivalSection;
