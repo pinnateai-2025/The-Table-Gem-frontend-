@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const messages = [
   '2000+ Happy Customers',
   'Summer sale is live 40% Discount',
-  'For bulk purchase, please contact +91 9123456789',
+  'For bulk purchase, please contact +91 8051550460',
 ];
 
 const TopBar = () => {
