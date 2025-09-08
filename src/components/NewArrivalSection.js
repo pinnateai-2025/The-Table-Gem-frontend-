@@ -12,30 +12,30 @@ const ServewareProduct = () => {
 
   const isLiked = (id) => wishlist.some((item) => item.id === id);
 
+  // Use API base URL from .env
+  const API_URL = process.env.REACT_APP_API_URL;
+
   // Fetch products from API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("https://api.thetablegem.com/api/products");
+        const res = await fetch(`${API_URL}/products`);
         const data = await res.json();
-        // console.log("API Response:", data);
 
-        // Check if API returns { data: [...] } or just [...]
         if (Array.isArray(data)) {
           setProducts(data);
         } else if (data?.data) {
           setProducts(data.data);
         }
-
       } catch (err) {
         console.error("Error fetching products:", err);
       } finally {
-        setLoading(false); // ✅ make sure we stop loading
+        setLoading(false);
       }
     };
 
     fetchProducts();
-  }, []);
+  }, [API_URL]);
 
   return (
     <div className="w-full">
@@ -81,8 +81,8 @@ const ServewareProduct = () => {
                           <div onClick={() => {
                             const wishlistProduct = {
                               id: product.id,
-                              title: product.name, 
-                              image: product.image_url, 
+                              title: product.name,
+                              image: product.image_url,
                               price: product.price,
                             };
                             toggleWishlist(wishlistProduct);
