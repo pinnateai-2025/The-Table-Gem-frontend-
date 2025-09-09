@@ -11,7 +11,7 @@ const ProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
     const { wishlist, toggleWishlist } = useWishlist();
 
-    const images = product?.images || (product?.image_url ? [product.image_url] : []);
+    const images = product?.images?.length ? product.images : [product.image_url];
     const [mainImage, setMainImage] = useState(images[0] || "");
 
     const isLiked = (id) => wishlist.some((item) => item.id === id);
@@ -29,7 +29,7 @@ const ProductDetails = () => {
             {/* Images */}
             <div className="space-y-4">
                 <img
-                    src={mainImage}
+                    src={mainImage || product.image_url}
                     alt={product.name}
                     className="rounded-xl w-full h-[600px]  max-[768px]:h-[560px] max-[500px]:h-[400px] max-[375px]:h-[300px] object-cover shadow-lg border border-gray-200"
                 />
@@ -83,7 +83,7 @@ const ProductDetails = () => {
                         {isLiked(product.id) ? (
                             <FaHeart className="w-[28px] h-[27px] text-red-500 text-[20px] cursor-pointer absolute right-0 hover:text-red-500" />
                         ) : (
-                           <FaRegHeart className="w-[28px] h-[27px] text-black text-[20px] hover:text-red-500 cursor-pointer absolute right-0" />
+                            <FaRegHeart className="w-[28px] h-[27px] text-black text-[20px] hover:text-red-500 cursor-pointer absolute right-0" />
                         )}
                     </div>
                 </div>
