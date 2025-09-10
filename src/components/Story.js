@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import img9 from '../image/img9.jpg';
+import OurStory from '../image/ourstory.jpeg';
 
 const Story = () => {
 
@@ -12,18 +12,18 @@ const Story = () => {
             >
                 Our Story
             </h2>
-            <div className="grid grid-cols-1 min-[1025px]:grid-cols-2 gap-6 p-4 mt-[40px]">
+            <div className="grid grid-cols-1 min-[1025px]:grid-cols-2 gap-6 p-4 mt-[40px] max-[768px]:mt-[20px]">
                 {/* Image Section */}
                 <div className="flex justify-center items-center">
                     <img
-                        src={img9}
+                        src={OurStory}
                         alt="Team"
-                        className="w-full h-auto max-w-[100%] rounded-[14px] p-2"
+                        className="w-[70%] h-[700px] max-[768px]:w-[100%] max-[425px]:h-[500px] max-[375px]:h-[400px] max-[320px]:h-[300px] rounded-[14px] p-2"
                     />
                 </div>
 
                 {/* Text Section */}
-                <div className="text-justify space-y-4 p-2 text-[16px] text-black">
+                <div className="text-justify space-y-4 p-2 text-[16px] text-black pr-[100px] max-[1024px]:pr-[0px]">
                     <p>
                         Hi there, I’m <strong>Shahinda Abid</strong>, and <strong>The Table Gem</strong> is a dream that grew straight from my heart.
                     </p>
