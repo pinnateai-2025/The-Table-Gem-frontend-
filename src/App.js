@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import NewArrivalPage from './pages/NewArrival';
 import Gifts from './pages/Gifts';
 import Collection from './pages/Collection';
-import CustomMade from './pages/CustomMade';
+import Wholesale from './pages/Wholesale';
 import Contact from './pages/Contact';
 import OurStory from './pages/OurStory';
 import Products from "./pages/Products";
@@ -13,6 +13,8 @@ import Wishlist from "./pages/Wishlist";
 import { WishlistProvider } from "./context/WishlistContext";
 import Serveware from "./pages/Serveware";
 import Platter from "./pages/Platter";
+import Drinkware from "./pages/Drinkware";
+
 
 const App = () => (
   <Router>
@@ -22,7 +24,7 @@ const App = () => (
         <Route path="/newarrival" element={<NewArrivalPage />} />
         <Route path="/gifts" element={<Gifts />} />
         <Route path="/collection" element={<Collection />} />
-        <Route path="/custommade" element={<CustomMade />} />
+        <Route path="/wholesale" element={<Wholesale />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/ourstory" element={<OurStory />} />
         <Route path="/productdetails" element={<Products />} />
@@ -30,6 +32,7 @@ const App = () => (
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/serveware" element={<Serveware />} />
         <Route path="/serveware/platter" element={<Platter />} />
+        <Route path="/drinkware" element={<Drinkware />} />
       </Routes>
     </WishlistProvider>
   </Router>

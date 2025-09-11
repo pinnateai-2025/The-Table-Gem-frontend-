@@ -8,10 +8,10 @@ import logo from "../image/logo.png";
 
 const navLinks = [
     { path: '/', label: 'HOME' },
-    { path: '/newarrival', label: 'NEW ARRIVAL', disabled: true },
-    { path: '/gifts', label: 'GIFTS', disabled: true },
-    { path: '/collection', label: 'COLLECTION', disabled: true },
-    { path: '/custommade', label: 'CUSTOM MADE' },
+    // { path: '/newarrival', label: 'NEW ARRIVAL', disabled: true },
+    // { path: '/gifts', label: 'GIFTS', disabled: true },
+    // { path: '/collection', label: 'COLLECTION', disabled: true },
+    { path: '/wholesale', label: 'WHOLESALE' },
     { path: '/contact', label: 'CONTACT' },
     { path: '/ourstory', label: 'OUR STORY' },
 ];

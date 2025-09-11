@@ -4,12 +4,13 @@ import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useWishlist } from "../context/WishlistContext";
 import CategoriesButton from "./CategoriesButton";
 
-const ServewareProduct = () => {
+const DrinkwareProduct = () => {
   const subCategories = [
-    // { name: "Plates", disabled: true },
-    // { name: "Serving Set", disabled: true },
-    // { name: "Bowls", disabled: true },
-    // { name: "Platter", path: "/serveware/platter" },
+    // { name: "Mugs", path: "/drinkware/mugs" },
+    // { name: "Cups", disabled: true },
+    // { name: "Kettle Set", disabled: true },
+    // { name: "Glasses", path: "/drinkware/glasses" },
+    // { name: "Cups & Saucers", disabled: true }
   ];
 
   const [products, setProducts] = useState([]);
@@ -71,7 +72,7 @@ const ServewareProduct = () => {
         <h2
           className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
         >
-          Platter
+          {subCategories[0]?.name || "Drinkware"}
         </h2>
 
         {loading ? (
@@ -85,11 +86,13 @@ const ServewareProduct = () => {
                   className="bg-white rounded-lg hover:shadow-md transition flex-shrink-0"
                 >
                   {/* Image Section */}
-                  <div className="w-[240px] h-[260px] max-[1024px]:w-[210px] max-[1024px]:h-[210px] max-[768px]:w-[200px] max-[768px]:h-[200px] max-[500px]:w-[100px] max-[500px]:h-[100px] overflow-hidden rounded-md relative group cursor-pointer">
+                  <div
+                    className="w-[240px] h-[260px] max-[1024px]:w-[210px] max-[1024px]:h-[210px] max-[768px]:w-[200px] max-[768px]:h-[200px] max-[500px]:w-[100px] max-[500px]:h-[100px] overflow-hidden rounded-md relative group cursor-pointer"
+                    onClick={() =>
+                      navigate("/productdetails", { state: { product } })
+                    }
+                  >
                     <img
-                      onClick={() =>
-                        navigate("/productdetails", { state: { product } })
-                      }
                       src={product.image_url}
                       alt={product.name}
                       className="w-full h-full object-cover rounded-md transition-opacity duration-300"
@@ -104,15 +107,23 @@ const ServewareProduct = () => {
                           <h3 className="text-base max-[1024px]:text-[12px] max-[768px]:text-[14px] max-[500px]:text-[10px] max-[500px]:w-[80px] max-[500px]:leading-tight font-semibold text-gray-900">
                             {product.name}
                           </h3>
-                          <div onClick={() => {
-                            const wishlistProduct = {
-                              id: product.id,
-                              title: product.name,
-                              image: product.image_url,
-                              price: product.price,
-                            };
-                            toggleWishlist(wishlistProduct);
-                          }}>
+                          <div
+                            onClick={() => {
+                              const wishlistProduct = {
+                                id: product.id,
+                                name: product.name,
+                                image_url: product.image_url,
+                                price: product.price,
+                              };
+                              toggleWishlist(wishlistProduct);
+                            }}
+                            role="button"
+                            aria-label={
+                              isLiked(product.id)
+                                ? "Remove from wishlist"
+                                : "Add to wishlist"
+                            }
+                          >
                             {isLiked(product.id) ? (
                               <FaHeart className="text-red-500 text-[20px] max-[500px]:text-[16px] cursor-pointer" />
                             ) : (
@@ -124,11 +135,11 @@ const ServewareProduct = () => {
                         <div className="flex flex-row max-[500px]:flex-col max-[500px]:items-start gap-2 max-[500px]:gap-0 items-center mt-2 max-[500px]:mt-1">
                           {product.originalPrice && (
                             <p className="text-[16px] max-[500px]:text-[10px] text-red-700 line-through md:text-[12px]">
-                              {/* Rs. {product.originalPrice}.00 */}
+                              Rs. {Number(product.originalPrice).toFixed(2)}
                             </p>
                           )}
                           <p className="text-[16px] max-[500px]:text-[10px] font-medium text-green-800 md:text-[12px]">
-                            Rs. {product.price}.00
+                            Rs. {Number(product.price).toFixed(2)}
                           </p>
                         </div>
                       </div>
@@ -144,7 +155,9 @@ const ServewareProduct = () => {
                 </div>
               ))
             ) : (
-              <p className="text-center text-gray-600 mt-10 text-[26px]">No products found.</p>
+              <p className="text-center text-gray-600 mt-10 text-[26px]">
+                No products found.
+              </p>
             )}
           </div>
         )}
@@ -153,7 +166,7 @@ const ServewareProduct = () => {
       {/* View All Button */}
       <div className="flex justify-center mb-10 w-full">
         <button
-          onClick={() => navigate("/serveware/platter", { state: { products } })}
+          onClick={() => navigate("/drinkware/mugs", { state: { products } })}
           className="w-[140px] h-[40px] max-[500px]:w-[100px] max-[500px]:h-[30px] max-[500px]:text-[14px] flex items-center justify-center border border-green-900 py-2 px-10 max-[500px]:px-5 rounded bg-[#0D4017] text-white transition hover:bg-white hover:text-green-900"
         >
           View All
@@ -163,4 +176,4 @@ const ServewareProduct = () => {
   );
 };
 
-export default ServewareProduct;
+export default DrinkwareProduct;

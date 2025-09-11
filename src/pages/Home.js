@@ -3,9 +3,7 @@ import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import SubscribeSection from '../components/SubscribeSection';
 import Footer2 from '../components/Footer2';
-import NewArrivalSection from '../components/NewArrivalSection';
 import BestSelling from '../components/BestSelling';
-import SummerSale from '../components/SummerSale';
 import Footer1 from '../components/Footer1';
 import Slider1 from '../components/Slider1';
 import Slider2 from '../components/Slider2';
@@ -23,11 +21,9 @@ const Home = () => (
             <div className="order-2 md:order-1">
                 <CategoriesButton
                     categories={[
-                        { name: "Coffee Mugs", disabled: true },
+                        { name: "Drinkware", path: "/drinkware" },
                         { name: "Serveware", path: "/serveware" },
-                        { name: "Drinkware", disabled: true },
-                        { name: "Tableware", disabled: true },
-                        { name: "Kitchenware", disabled: true },
+                        { name: "Home Decor", path: "/home-decor" },
                     ]}
                 />
             </div>
@@ -36,9 +32,7 @@ const Home = () => (
             </div>
         </div>
 
-        <NewArrivalSection />
         <BestSelling />
-        <SummerSale />
         <Slider2 />
         <SubscribeSection />
         <Footer1 />
