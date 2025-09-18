@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import {
   FaInstagram,
   FaFacebook,
-  FaYoutube,
-  FaLinkedin,
+  // FaYoutube,
+  // FaLinkedin,
   FaEnvelope,
 } from 'react-icons/fa';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
@@ -168,13 +168,13 @@ const Footer1 = () => {
           <a href="https://www.facebook.com/the_table_gem/" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
             <FaFacebook />
           </a>
-          <a href="https://www.youtube.com/channel/UCW8g1g1g1g1g1g1g1g1g1g" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
+          {/* <a href="https://www.youtube.com/channel/UCW8g1g1g1g1g1g1g1g1g1g" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
             <FaYoutube />
-          </a>
-          <a href="https://www.linkedin.com/company/the-table-gem/" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
+          </a> */}
+          {/* <a href="https://www.linkedin.com/company/the-table-gem/" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
             <FaLinkedin />
-          </a>
-          <a href="mailto:info@thetablegem.com" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
+          </a> */}
+          <a href="mailto:thetablegem@gmail.com" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
             <FaEnvelope />
           </a>
         </div>
