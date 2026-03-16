@@ -162,10 +162,10 @@ const Footer1 = () => {
           />
         </div>
         <div className="flex justify-center gap-3 lg:gap-10 text-lg md:text-base text-white">
-          <a href="https://www.instagram.com/the_table_gem/" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
+          <a href="https://www.instagram.com/the_table_gem/" target="_blank" rel="noreferrer">
             <FaInstagram />
           </a>
-          <a href="https://www.facebook.com/the_table_gem/" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
+          <a href="https://www.facebook.com/the_table_gem/" target="_blank" rel="noreferrer">
             <FaFacebook />
           </a>
           {/* <a href="https://www.youtube.com/channel/UCW8g1g1g1g1g1g1g1g1g1g" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
@@ -174,7 +174,7 @@ const Footer1 = () => {
           {/* <a href="https://www.linkedin.com/company/the-table-gem/" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
             <FaLinkedin />
           </a> */}
-          <a href="mailto:thetablegem@gmail.com" target="_blank" className="bg-[#0D4017] p-4 rounded-full">
+          <a href="mailto:thetablegem@gmail.com" target="_blank" rel="noreferrer">
             <FaEnvelope />
           </a>
         </div>

@@ -1,192 +1,276 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaRegHeart } from 'react-icons/fa';
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaBars, FaTimes, FaRegHeart } from "react-icons/fa";
+import api from "../api/axios";
+
 import profile from "../image/profile.svg";
 import fav from "../image/Fav.svg";
 import cartIcon from "../image/cart icon.svg";
 import logo from "../image/logo.png";
 
 const navLinks = [
-    { path: '/', label: 'HOME' },
-    // { path: '/newarrival', label: 'NEW ARRIVAL', disabled: true },
-    // { path: '/gifts', label: 'GIFTS', disabled: true },
-    // { path: '/collection', label: 'COLLECTION', disabled: true },
-    { path: '/wholesale', label: 'WHOLESALE' },
-    { path: '/contact', label: 'CONTACT' },
-    { path: '/ourstory', label: 'OUR STORY' },
+  { path: "/", label: "HOME" },
+  { path: "/wholesale", label: "WHOLESALE" },
+  { path: "/contact", label: "CONTACT" },
+  { path: "/ourstory", label: "OUR STORY" },
 ];
 
 const Navbar = () => {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [showSearch, setShowSearch] = useState(false);
-    const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [user, setUser] = useState(null);
 
-    const toggleSearch = () => setShowSearch(!showSearch);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dropdownRef = useRef();
 
-    return (
-        <nav className="bg-[#EEEEEE] w-full shadow-md sticky top-0 z-50">
+  const token = localStorage.getItem("token");
+  const isLoggedIn = !!token;
 
-            {/* Desktop Navbar (>1024px only) */}
-            <div className="hidden xl:flex items-center relative mx-auto h-[90px]">
-                {/* Logo */}
-                <div className="flex items-center absolute left-0 px-6 lg:px-8">
-                    <Link to="/">
-                        <img
-                            src={logo}
-                            alt="Logo"
-                            className="w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] rounded-full object-cover cursor-pointer"
-                        />
-                    </Link>
-                </div>
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!token) return;
+      try {
+        const res = await api.get("/auth/profile");
+        setUser(res.data.user);
+      } catch (err) {
+        console.log("Profile error:", err);
+      }
+    };
+    fetchProfile();
+  }, [token]);
 
-                {/* Nav Links - Center */}
-                <div className="flex items-center mx-auto 
-                  space-x-6 lg:space-x-8 xl:space-x-10 
-                  text-sm lg:text-base font-medium">
-                    {navLinks.map((link) => {
-                        const isActive = location.pathname === link.path;
-                        return link.disabled ? (
-                            <span
-                                key={link.path}
-                                className="cursor-not-allowed pointer-events-none"
-                            >
-                                {link.label}
-                            </span>
-                        ) : (
-                            <Link
-                                key={link.path}
-                                to={link.path}
-                                className={`px-2 lg:px-3 py-1 rounded transition duration-200 ${isActive
-                                    ? 'underline text-black'
-                                    : 'text-black hover:border-b-2 hover:border-[#0D4017]'
-                                    }`}
-                            >
-                                {link.label}
-                            </Link>
-                        );
-                    })}
-                </div>
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowProfileMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-                {/* Icons */}
-                <div className="flex items-center absolute right-0 px-6 lg:px-8 space-x-3 lg:space-x-4">
-                    <Link to="/register">
-                        <img src={profile} alt="Profile" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
-                    </Link>
-                    <Link to="/wishlist">
-                        <img src={fav} alt="Fav" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
-                    </Link>
-                    <img src={cartIcon} alt="Cart" className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer" />
-                </div>
-            </div>
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
-            {/* Mobile/Tablet Navbar (≤1024px) */}
-            <div className="xl:hidden flex justify-between items-center px-4 h-[60px] max-[426px]:h-[50px] max-[426px]:px-2 relative">
-                {/* Left: Menu & Search */}
-                <div className="flex items-center space-x-4 max-[426px]:space-x-2">
-                    <button onClick={() => setMenuOpen(!menuOpen)}>
-                        {menuOpen ? (
-                            <FaTimes size={20} className="text-black max-[426px]:w-4 max-[426px]:h-4" />
-                        ) : (
-                            <FaBars size={20} className="text-black max-[426px]:w-4 max-[426px]:h-4" />
-                        )}
-                    </button>
-                    <button onClick={toggleSearch}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-6 h-6 text-black max-[425px]:w-5 max-[425px]:h-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                </div>
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/");
+    window.location.reload();
+  };
 
-                {/* Center: Logo */}
-                <div className="absolute left-1/2 transform -translate-x-1/2">
-                    <img
-                        src={logo}
-                        alt="Logo"
-                        className="w-[50px] h-[50px] rounded-full object-cover max-[426px]:w-[30px] max-[426px]:h-[30px]"
-                    />
-                </div>
+  const handleDropdownLinkClick = () => {
+    setShowProfileMenu(false);
+  };
 
-                {/* Right: Icons */}
-                <div className="flex items-center space-x-4 max-[426px]:space-x-2">
-                    <Link to="/wishlist">
-                        <FaRegHeart size={22} className="hover:text-[#0D4017] w-6 h-6 max-[426px]:w-4 max-[426px]:h-4" />
-                    </Link>
-                    <img src={cartIcon} alt="Cart" className="w-6 h-6 cursor-pointer max-[426px]:w-4 max-[426px]:h-4" />
-                </div>
-            </div>
+  return (
+    <nav className="bg-[#EEEEEE] w-full shadow-md sticky top-0 z-50">
 
-            {/* Search Bar (visible if toggled) */}
-            {showSearch && (
-                <div
-                    className="absolute left-0 w-full bg-white px-4 py-3 shadow-md z-40 
-        xl:top-[90px] xl:right-8 xl:left-auto xl:w-[300px] xl:rounded-md"
-                >
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        className="w-full border-[1.5px] border-[rgba(13,64,23,1)] rounded-full px-4 py-2
-               focus:outline-none text-center placeholder-[rgba(13,64,23,1)]"
-                        style={{
-                            fontFamily: "Lato, sans-serif",
-                            fontWeight: 500,
-                            fontSize: "14px",
-                            lineHeight: "120%",
-                            letterSpacing: "0.02em",
-                            verticalAlign: "middle",
+      {/* DESKTOP NAVBAR */}
+      <div className="hidden xl:flex items-center relative mx-auto h-[90px]">
+
+        {/* LOGO */}
+        <div className="flex items-center absolute left-0 px-6 lg:px-8">
+          <Link to="/">
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] rounded-full object-cover"
+            />
+          </Link>
+        </div>
+
+        {/* NAV LINKS */}
+        <div className="flex items-center mx-auto space-x-10 text-base font-medium">
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`px-2 py-1 ${
+                  isActive
+                    ? "underline text-black"
+                    : "text-black hover:border-b-2 hover:border-[#0D4017]"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* RIGHT ICONS */}
+        <div className="flex items-center absolute right-0 px-6 lg:px-8 space-x-4">
+
+          {/* PROFILE DROPDOWN */}
+          <div className="relative" ref={dropdownRef}>
+            <img
+              src={profile}
+              alt="Profile"
+              className="w-6 h-6 lg:w-7 lg:h-7 cursor-pointer"
+              onClick={() => setShowProfileMenu(!showProfileMenu)}
+            />
+
+            {showProfileMenu && (
+              <div className="absolute right-0 mt-4 w-64 bg-white shadow-lg rounded-lg p-4 z-50">
+
+                {/* NOT LOGGED IN */}
+                {!isLoggedIn && (
+                  <>
+                    <div className="pb-3 border-b">
+                      <p className="font-semibold text-lg">Welcome</p>
+                      <p className="text-sm text-gray-500">
+                        To access account and manage orders
+                      </p>
+                      <button
+                        onClick={() => {
+                          navigate("/register/login");
+                          handleDropdownLinkClick();
                         }}
-                    />
-                </div>
-            )}
-
-            {/* Mobile Menu */}
-            {menuOpen && (
-                <div className="xl:hidden bg-white shadow-md z-40">
-
-                    {/* Profile Image at top (shifted right, no border below) */}
-                    <div className="py-3">
-                        <Link to="/register">
-                            <img
-                                src={profile}
-                                alt="Profile"
-                                className="w-6 h-6 ml-8 cursor-pointer max-[426px]:w-6 max-[426px]:h-6"
-                            />
-                        </Link>
+                        className="mt-3 w-full border border-red-400 text-red-500 py-2 rounded hover:bg-red-50"
+                      >
+                        LOGIN / SIGNUP
+                      </button>
                     </div>
 
-                    {/* Navigation Links with dividers (no border on last one) */}
-                    {navLinks.map((link, index) => {
-                        const isActive = location.pathname === link.path;
-                        return link.disabled ? (
-                            <span
-                                key={link.path}
-                                className={`block py-3 text-[#0D4017] pl-8 font-medium cursor-not-allowed pointer-events-none ${index !== navLinks.length - 1 ? 'border-b border-[rgba(13,64,23,1)]' : ''
-                                    }`}
-                            >
-                                {link.label}
-                            </span>
-                        ) : (
-                            <Link
-                                key={link.path}
-                                to={link.path}
-                                onClick={() => setMenuOpen(false)}
-                                className={`block py-3 pl-8 font-medium ${isActive ? 'text-[#0D4017]' : 'text-[#0D4017]'
-                                    } ${index !== navLinks.length - 1 ? 'border-b border-[rgba(13,64,23,1)]' : ''
-                                    }`}
-                            >
-                                {link.label}
-                            </Link>
-                        );
-                    })}
-                </div>
+                    <div className="pt-3 flex flex-col space-y-2 text-sm">
+                      <Link to="/orders" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Orders</Link>
+                      <Link to="/wishlist" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Wishlist</Link>
+                      <Link to="/gift-cards" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Gift Cards</Link>
+                      <Link to="/contact" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Contact Us</Link>
+                    </div>
+                  </>
+                )}
+
+                {/* LOGGED IN */}
+                {isLoggedIn && (
+                  <>
+                    <div className="border-b pb-3">
+                      <p className="font-semibold text-base">
+                        {user ? `Hello ${user.name}` : "Hello"}
+                        </p>
+                      <p className="text-sm text-gray-500">
+                        {user ? user.email : "Loading..."}
+                      </p>
+                    </div>
+
+                    <div className="py-3 flex flex-col space-y-2 text-sm border-b">
+                      <Link to="/orders" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Orders</Link>
+                      <Link to="/wishlist" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Wishlist</Link>
+                      <Link to="/gift-cards" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Gift Cards</Link>
+                      <Link to="/contact" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Contact Us</Link>
+                    </div>
+
+                    <div className="py-3 flex flex-col space-y-2 text-sm border-b">
+                      <Link to="/profile" onClick={handleDropdownLinkClick} className="hover:text-[#0D4017]">Edit Profile</Link>
+                    </div>
+
+                    <div className="pt-3">
+                      <button
+                        className="text-red-500 text-sm text-left hover:text-red-700"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </>
+                )}
+
+              </div>
             )}
-        </nav>
-    );
+          </div> {/* ✅ FIX: closes dropdownRef div */}
+
+          <Link to="/wishlist">
+            <img src={fav} alt="Fav" className="w-6 h-6 lg:w-7 lg:h-7" />
+          </Link>
+
+          <img src={cartIcon} alt="Cart" className="w-6 h-6 lg:w-7 lg:h-7" />
+
+        </div> {/* closes right icons */}
+      </div> {/* closes desktop navbar */}
+
+      {/* MOBILE NAVBAR */}
+      <div className="xl:hidden flex justify-between items-center px-4 h-[60px]">
+        <button onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+        </button>
+
+        <Link to="/">
+          <img src={logo} alt="Logo" className="w-[40px] h-[40px] rounded-full" />
+        </Link>
+
+        <div className="flex items-center space-x-3">
+          <Link to="/wishlist">
+            <FaRegHeart size={20} />
+          </Link>
+          <img src={cartIcon} alt="Cart" className="w-5 h-5" />
+        </div>
+      </div>
+
+      {/* MOBILE MENU */}
+      {menuOpen && (
+        <div className="xl:hidden bg-white shadow-md">
+          <div className="py-4 px-6 border-b">
+            {!isLoggedIn ? (
+              <>
+                <p className="font-semibold text-lg">Welcome</p>
+                <p className="text-sm text-gray-500">To access account and manage orders</p>
+                <button
+                  onClick={() => navigate("/register/login")}
+                  className="mt-3 w-full border border-red-400 text-red-500 py-2 rounded"
+                >
+                  LOGIN / SIGNUP
+                </button>
+                <div className="mt-3 flex flex-col space-y-2 text-sm">
+                  <Link to="/orders" className="hover:text-[#0D4017]">Orders</Link>
+                  <Link to="/wishlist" className="hover:text-[#0D4017]">Wishlist</Link>
+                  <Link to="/gift-cards" className="hover:text-[#0D4017]">Gift Cards</Link>
+                  <Link to="/contact" className="hover:text-[#0D4017]">Contact Us</Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="font-semibold">Hello {user?.name}</p>
+                <p className="text-sm text-gray-500">{user?.email}</p>
+                <div className="mt-3 flex flex-col space-y-2 text-sm">
+                  <Link to="/orders" className="hover:text-[#0D4017]">Orders</Link>
+                  <Link to="/wishlist" className="hover:text-[#0D4017]">Wishlist</Link>
+                  <Link to="/gift-cards" className="hover:text-[#0D4017]">Gift Cards</Link>
+                  <Link to="/contact" className="hover:text-[#0D4017]">Contact Us</Link>
+                </div>
+              </>
+            )}
+          </div>
+
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`block py-3 pl-6 ${isActive ? "text-[#0D4017]" : ""} border-b`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+
+          {isLoggedIn && (
+            <div className="border-t">
+              <Link to="/profile" className="block py-3 pl-6">Edit Profile</Link>
+              <button className="block py-3 pl-6 text-red-500" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+    </nav>
+  );
 };
 
 export default Navbar;

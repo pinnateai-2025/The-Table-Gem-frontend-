@@ -12,7 +12,7 @@ const ProductDetails = () => {
     const { wishlist, toggleWishlist } = useWishlist();
 
     const images = product?.images?.length ? product.images : [product.image_url];
-    const [mainImage, setMainImage] = useState(images[0] || "");
+    const [mainImage] = useState(images[0] || "");
 
     const isLiked = (id) => wishlist.some((item) => item.id === id);
 

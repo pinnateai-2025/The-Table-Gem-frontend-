@@ -1,21 +1,42 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import api from "../api/axios";
 
 const Auth = ({ type }) => {
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
 
   const [error, setError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [isLogin, setIsLogin] = useState(type === "login");
+
+  /* =========================
+     REDIRECT IF LOGGED IN
+  ========================== */
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate]);
+
+  /* =========================
+     DETECT LOGIN / SIGNUP
+  ========================== */
 
   useEffect(() => {
     setIsLogin(location.pathname.includes("/login"));
@@ -29,14 +50,18 @@ const Auth = ({ type }) => {
     }
   };
 
-  const validateEmail = (e) => {
-    const emailValue = e.target.value;
-    setEmail(emailValue);
+  /* =========================
+     VALIDATIONS
+  ========================== */
 
-    const emailRegex =
+  const validateEmail = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    const regex =
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (!emailRegex.test(emailValue)) {
+    if (!regex.test(value)) {
       setEmailError("Please enter a valid email address.");
     } else {
       setEmailError("");
@@ -44,13 +69,13 @@ const Auth = ({ type }) => {
   };
 
   const validatePassword = (e) => {
-    const passwordValue = e.target.value;
-    setPassword(passwordValue);
+    const value = e.target.value;
+    setPassword(value);
 
-    const passwordRegex =
+    const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
-    if (!passwordRegex.test(passwordValue)) {
+    if (!regex.test(value)) {
       setPasswordError(
         "Password must be 8+ chars with uppercase, lowercase, number & symbol."
       );
@@ -59,64 +84,73 @@ const Auth = ({ type }) => {
     }
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
+  /* =========================
+     SUBMIT
+  ========================== */
 
-  try {
+  const handleSubmit = async (e) => {
 
-    if (isLogin) {
+    e.preventDefault();
+    setError("");
 
-      const res = await api.post("/auth/login", {
-        email,
-        password
-      });
+    if (!isLogin && password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
-      // store token if backend sends one
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
+    try {
+
+      if (isLogin) {
+
+        const res = await api.post("/auth/login", {
+          email,
+          password
+        });
+
+        const token = res.data.token;
+
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+
+        navigate("/");
+
+      } else {
+
+        await api.post("/auth/register", {
+          name,
+          email,
+          password
+        });
+
+        const loginRes = await api.post("/auth/login", {
+          email,
+          password
+        });
+
+        const token = loginRes.data.token;
+
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+
+        navigate("/");
+
       }
 
-      navigate("/");
+    } catch (err) {
 
-    } else {
-
-      // Register user
-      await api.post("/auth/register", {
-        name,
-        email,
-        password
-      });
-
-      // Auto login
-      const loginRes = await api.post("/auth/login", {
-        email,
-        password
-      });
-
-      // Save token
-      if (loginRes.data.token) {
-        localStorage.setItem("token", loginRes.data.token);
-      }
-
-      // Redirect to home
-      navigate("/");
+      setError(
+        err.response?.data?.message ||
+        "Something went wrong"
+      );
 
     }
 
-  } catch (err) {
-
-    console.log(err.response);
-
-    setError(
-      err.response?.data?.message ||
-      "Something went wrong"
-    );
-
-  }
-};
+  };
 
   return (
+
     <div className="flex items-center justify-center h-screen bg-gray-100">
 
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
@@ -133,6 +167,7 @@ const handleSubmit = async (e) => {
 
         <form className="space-y-4" onSubmit={handleSubmit}>
 
+          {/* NAME */}
           {!isLogin && (
             <div>
               <label className="block mb-1 font-medium">
@@ -150,7 +185,9 @@ const handleSubmit = async (e) => {
             </div>
           )}
 
+          {/* EMAIL */}
           <div>
+
             <label className="block mb-1 font-medium">
               Your Email
             </label>
@@ -171,39 +208,102 @@ const handleSubmit = async (e) => {
                 {emailError}
               </p>
             )}
+
           </div>
 
+          {/* PASSWORD */}
           <div>
+
             <label className="block mb-1 font-medium">
               Password
             </label>
 
-            <input
-              type="password"
-              className={`border rounded-lg w-full p-2.5 ${
-                passwordError ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="••••••••"
-              value={password}
-              onChange={validatePassword}
-              required
-            />
+            <div className="relative">
+
+              <input
+                type={showPassword ? "text" : "password"}
+                className={`border rounded-lg w-full p-2.5 pr-10 ${
+                  passwordError ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="••••••••"
+                value={password}
+                onChange={validatePassword}
+                required
+              />
+
+              <span
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+                onClick={() =>
+                  setShowPassword(!showPassword)
+                }
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+
+            </div>
 
             {passwordError && (
               <p className="text-red-600 text-sm mt-1">
                 {passwordError}
               </p>
             )}
+
           </div>
+
+          {/* CONFIRM PASSWORD */}
+          {!isLogin && (
+
+            <div>
+
+              <label className="block mb-1 font-medium">
+                Confirm Password
+              </label>
+
+              <div className="relative">
+
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  className="border border-gray-300 rounded-lg w-full p-2.5 pr-10"
+                  placeholder="Confirm password"
+                  value={confirmPassword}
+                  onChange={(e) =>
+                    setConfirmPassword(e.target.value)
+                  }
+                  required
+                />
+
+                <span
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+                  onClick={() =>
+                    setShowConfirmPassword(!showConfirmPassword)
+                  }
+                >
+                  {showConfirmPassword ? (
+                    <FaEyeSlash />
+                  ) : (
+                    <FaEye />
+                  )}
+                </span>
+
+              </div>
+
+            </div>
+
+          )}
+
+          {/* SUBMIT BUTTON */}
 
           <button
             type="submit"
-            className="w-full bg-[rgba(13,64,23,1)] text-white py-2 rounded-lg hover:bg-[#2a4a2a]"
+            disabled={passwordError || emailError}
+            className="w-full bg-[rgba(13,64,23,1)] text-white py-2 rounded-lg hover:bg-[#2a4a2a] disabled:opacity-50"
           >
             {isLogin ? "Login" : "Sign Up"}
           </button>
 
         </form>
+
+        {/* SWITCH FORM */}
 
         <p className="text-center mt-4 text-gray-600">
 
@@ -225,7 +325,9 @@ const handleSubmit = async (e) => {
       </div>
 
     </div>
+
   );
+
 };
 
 export default Auth;

@@ -14,7 +14,9 @@ import { WishlistProvider } from "./context/WishlistContext";
 import Serveware from "./pages/Serveware";
 import Platter from "./pages/Platter";
 import Drinkware from "./pages/Drinkware";
-
+import Profile from "./pages/Profile";       // ✅ create this page
+import Orders from "./pages/Orders";         // ✅ create this page
+import GiftCards from "./pages/GiftCards";   // ✅ create this page
 
 const App = () => (
   <Router>
@@ -33,6 +35,10 @@ const App = () => (
         <Route path="/serveware" element={<Serveware />} />
         <Route path="/serveware/platter" element={<Platter />} />
         <Route path="/drinkware" element={<Drinkware />} />
+        <Route path="/profile" element={<Profile />} />       {/* ✅ added */}
+        <Route path="/orders" element={<Orders />} />         {/* ✅ added */}
+        <Route path="/orders/:id" element={<Orders />} />     {/* ✅ added */}
+        <Route path="/gift-cards" element={<GiftCards />} />  {/* ✅ added */}
       </Routes>
     </WishlistProvider>
   </Router>
