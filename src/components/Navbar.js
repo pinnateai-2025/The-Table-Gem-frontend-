@@ -13,6 +13,8 @@ const navLinks = [
   { path: "/wholesale", label: "WHOLESALE" },
   { path: "/contact", label: "CONTACT" },
   { path: "/ourstory", label: "OUR STORY" },
+  { path: "/newarrival", label: "NEW ARRIVAL" },
+  { path: "/shop", label: "SHOP" }
 ];
 
 const Navbar = () => {

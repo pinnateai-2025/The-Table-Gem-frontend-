@@ -11,12 +11,10 @@ import Products from "./pages/Products";
 import Register from "./pages/Register";
 import Wishlist from "./pages/Wishlist";
 import { WishlistProvider } from "./context/WishlistContext";
-import Serveware from "./pages/Serveware";
-import Platter from "./pages/Platter";
-import Drinkware from "./pages/Drinkware";
-import Profile from "./pages/Profile";       // ✅ create this page
-import Orders from "./pages/Orders";         // ✅ create this page
-import GiftCards from "./pages/GiftCards";   // ✅ create this page
+import Profile from "./pages/Profile";
+import Orders from "./pages/Orders";
+import GiftCards from "./pages/GiftCards";
+import CategoryPage from "./pages/Category";
 
 const App = () => (
   <Router>
@@ -32,13 +30,11 @@ const App = () => (
         <Route path="/productdetails" element={<Products />} />
         <Route path="/register/*" element={<Register />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/serveware" element={<Serveware />} />
-        <Route path="/serveware/platter" element={<Platter />} />
-        <Route path="/drinkware" element={<Drinkware />} />
-        <Route path="/profile" element={<Profile />} />       {/* ✅ added */}
-        <Route path="/orders" element={<Orders />} />         {/* ✅ added */}
-        <Route path="/orders/:id" element={<Orders />} />     {/* ✅ added */}
-        <Route path="/gift-cards" element={<GiftCards />} />  {/* ✅ added */}
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/orders/:id" element={<Orders />} />
+        <Route path="/gift-cards" element={<GiftCards />} />
+        <Route path="/category/:id" element={<CategoryPage />} />
       </Routes>
     </WishlistProvider>
   </Router>
