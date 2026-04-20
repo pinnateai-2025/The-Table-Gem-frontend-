@@ -15,50 +15,31 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await api.get("/category");
-
-        // ✅ Only top-level categories (no parent)
-        const topLevel = data.filter((cat) => !cat.parentId);
-
-        const mapped = topLevel.map((cat) => ({
+    api.get("/category")
+      .then(({ data }) => {
+        const topLevel = data.filter(cat => !cat.parentId);
+        setCategories(topLevel.map(cat => ({
           name: cat.name,
           path: `/category/${cat.id}`,
           state: { categoryId: cat.id, categoryName: cat.name },
-        }));
-
-        setCategories(mapped);
-      } catch (err) {
-        console.error("Failed to fetch categories", err);
-      }
-    };
-
-    fetchCategories();
+        })));
+      })
+      .catch(err => console.error("Failed to fetch categories", err));
   }, []);
 
   return (
-    <>
+    <div className="min-h-screen bg-white">
       <TopBar />
       <Navbar />
       <HeroSection />
-
-      <div className="flex flex-col">
-        <div className="order-2 md:order-1">
-          {/* ✅ 100% dynamic — no hardcoded categories */}
-          <CategoriesButton categories={categories} />
-        </div>
-        <div className="order-1 md:order-2">
-          <Slider1 />
-        </div>
-      </div>
-
+      <CategoriesButton categories={categories} />
+      <Slider1 />
       <BestSelling />
       <Slider2 />
       <SubscribeSection />
       <Footer1 />
       <Footer2 />
-    </>
+    </div>
   );
 };
 

@@ -1,30 +1,43 @@
-import { useState } from 'react'
-import { FaSearch } from "react-icons/fa";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Search } from 'lucide-react';
 
 const SearchBar = () => {
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
-    const [query, setQuery] = useState("");
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
-    return (
-        <div className="hidden md:flex sm:hidden items-center justify-center w-full bg-[#0D4017] h-[120px]">
-             <form onSubmit={handleSubmit} className="relative max-w-xl flex items-center justify-center">
-                <FaSearch
-                    className="absolute top-1/2 left-7 transform -translate-y-1/2 z-50 text-white cursor-pointer w-[25px] h-[29px]"
-                    onClick={handleSubmit}
-                />
-                <input
-                    type="search"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search"
-                    className="w-[590px] h-[60px] rounded-[10px] text-center border-[3px] border-white bg-white/20 backdrop-blur-sm py-2 pl-12 pr-4 text-white text-2xl focus:outline-none focus:ring-2 focus:border-white-600 hover:border-white-400 
-                 placeholder:text-[26px] placeholder:font-semibold placeholder:leading-[120%] placeholder:tracking-[0.02em] placeholder:align-middle placeholder-white"
-                />
-            </form>
-        </div>
-    )
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (query.trim()) navigate(`/shop?q=${encodeURIComponent(query.trim())}`);
+  };
+
+  return (
+    <>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap');`}</style>
+      <div className="hidden md:flex items-center justify-center w-full bg-[#0D4017] h-[100px]">
+        <form onSubmit={handleSubmit} className="relative w-full max-w-xl px-6">
+          <div className="relative flex items-center">
+            <Search className="absolute left-4 text-white/60 h-5 w-5 pointer-events-none" />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search products…"
+              className="w-full h-[52px] rounded-full border border-white/30 bg-white/10 backdrop-blur-sm pl-12 pr-32 text-white placeholder-white/50 focus:outline-none focus:border-white/60 focus:bg-white/15 transition-all"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '16px' }}
+            />
+            <button
+              type="submit"
+              className="absolute right-1.5 bg-white text-[#0D4017] text-sm font-semibold px-5 h-[40px] rounded-full hover:bg-[#0D4017] hover:text-white hover:border hover:border-white transition-all duration-300"
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            >
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
+  );
+};
 
 export default SearchBar;

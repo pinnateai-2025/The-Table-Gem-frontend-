@@ -1,96 +1,135 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Send, Phone, Mail, MapPin, Clock } from 'lucide-react';
+
+const G = "'Cormorant Garamond', serif";
+
+const inputCls = "w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 bg-gray-50 focus:outline-none focus:border-[#0D4017] focus:ring-2 focus:ring-[#0D4017]/10 focus:bg-white transition-all";
+
 const ContactForm = () => {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate()
-    return (
-        <div className="px-2 py-10 max-[500px]:py-6 mt-10 max-[500px]:mt-6">
-            <h2
-                className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
-            >
-                Contact
-            </h2>
+  const handleChange = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
-            <div className='mt-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto text-center max-[500px]:max-w-full max-[500px]:px-4'>
-                <div className="bg-gray-200 w-full rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Get in Touch with us</h3>
-                    <p className="text-gray-700 text-sm sm:text-base">
-                        If you have a question or a comment, please<br />
-                        Call: <a href="tel:+918051550460" className="text-blue-600 hover:underline">+91-8051550460</a><br />
-                        Mail: <a href="mailto:thetablegem@gmail.com" className="text-blue-600 hover:underline">thetablegem@gmail.com</a>
-                    </p>
-                </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // TODO: connect to your API
+    await new Promise(r => setTimeout(r, 1000)); // simulate
+    setSubmitted(true);
+    setLoading(false);
+    setForm({ name: '', email: '', phone: '', message: '' });
+  };
 
-                <div className="bg-gray-200 w-full rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Visit us</h3>
-                    <p className="text-gray-700 text-sm sm:text-base">Mon-Fri 10:30am - 6:30pm</p>
-                </div>
+  const contactCards = [
+    { icon: Phone, title: 'Call Us', lines: ['+91-8051550460'] },
+    { icon: Mail, title: 'Email Us', lines: ['thetablegem@gmail.com'] },
+    { icon: Clock, title: 'Working Hours', lines: ['Mon–Fri', '10:30am – 6:30pm'] },
+    { icon: MapPin, title: 'Find Our Store', lines: ['Ashok Rajpath,', 'Patna, Bihar 800004', '(Opening Soon)'] },
+  ];
 
-                {/* Center this card when it's alone */}
-                <div className="bg-gray-200 w-full rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow md:col-span-2 lg:col-span-1 mx-auto">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Find our store</h3>
-                    <p className="text-gray-700 text-sm sm:text-base">
-                        <span className='font-bold'>The Table Gem</span><br />
-                        Openning Soon
-                    </p>
-                </div>
-            </div>
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        .fu { animation: fadeUp 0.7s ease both; }
+      `}</style>
 
-            <div className="mt-[100px] flex items-center justify-center bg-white">
-                <form className="max-w-xl w-full bg-white rounded-lg">
-                    <h2 className="text-center font-trajan font-bold text-[24px] leading-[0%] tracking-[0.02em] align-middle mb-[50px]">
-                        Contact Form
-                    </h2>
-
-                    <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            className="w-full sm:w-[370px] h-[48px] rounded-[11px] border-[1.5px] border-black p-2 text-base sm:text-lg placeholder:text-black/70"
-                            required
-                        />
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            className="w-full sm:w-[370px] h-[48px] rounded-[11px] border-[1.5px] border-black p-2 text-base sm:text-lg placeholder:text-black/70"
-                            required
-                        />
-                    </div>
-
-                    <input
-                        type="tel"
-                        placeholder="Phone Number"
-                        className="w-[575px] max-[426px]:w-full h-[48px] rounded-[11px] border-[1.5px] border-black p-2 mb-4 text-base placeholder:text-black/70"
-                        required
-                    />
-
-                    <textarea
-                        placeholder="Comment"
-                        className="w-[575px] max-[426px]:w-full h-[230px] rounded-[11px] border-[1.5px] border-black p-2 mb-4 text-base placeholder:text-black/70"
-                        required
-                    ></textarea>
-
-                    <div className="flex items-center gap-4 mb-4">
-                        <button
-                            type="submit"
-                            className="bg-green-900 text-white px-6 py-2 rounded-md hover:bg-green-800 transition"
-                        >
-                            Send
-                        </button>
-                    </div>
-
-                    <div className="flex justify-center mt-[150px] w-full">
-                        <button
-                            className="flex items-center justify-center w-[110px] h-[40px] max-[500px]:w-[90px] max-[500px]:h-[30px] font-lato font-semibold text-[14px] max-[500px]:text-[12px] leading-[120%] tracking-[0.02em] border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
-                            onClick={() => navigate('/')}
-                        >
-                            Back
-                        </button>
-                    </div>
-                </form>
-            </div>
+      <div className="w-full bg-white" style={{ fontFamily: G }}>
+        {/* Hero */}
+        <div className="bg-[#0D4017] py-20 px-6 text-center relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10"
+            style={{ backgroundImage: 'radial-gradient(circle at 70% 50%, #4a9a5a 0%, transparent 60%)' }} />
+          <p className="text-white/40 text-[10px] tracking-[0.4em] uppercase mb-4">Reach Out</p>
+          <h1 className="text-white text-5xl md:text-6xl font-light">Get In <em>Touch</em></h1>
+          <div className="mt-6 w-12 h-px bg-white/30 mx-auto" />
         </div>
 
-    );
+        {/* Contact cards */}
+        <section className="py-16 px-6 bg-[#FAFAF7]">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {contactCards.map(({ icon: Icon, title, lines }, i) => (
+              <div key={i} className="bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-md transition-shadow fu" style={{ animationDelay: `${i * 0.08}s` }}>
+                <div className="w-10 h-10 bg-[#0D4017]/8 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Icon size={18} className="text-[#0D4017]" />
+                </div>
+                <p className="text-xs tracking-[0.2em] text-gray-400 uppercase mb-3">{title}</p>
+                {lines.map((line, j) => (
+                  <p key={j} className="text-sm text-gray-600 leading-relaxed">{line}</p>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Form */}
+        <section className="py-16 px-6">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-[10px] tracking-[0.35em] text-[#0D4017]/50 uppercase mb-3">Send a Message</p>
+              <h2 className="text-4xl md:text-5xl font-light text-gray-900">Contact Form</h2>
+              <div className="mt-4 w-12 h-px bg-[#0D4017]/40 mx-auto" />
+            </div>
+
+            {submitted ? (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-10 text-center">
+                <div className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Send size={20} className="text-emerald-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Message Sent!</h3>
+                <p className="text-gray-500 text-sm mb-6">We'll get back to you within 24–48 hours.</p>
+                <button onClick={() => setSubmitted(false)} className="text-[#0D4017] text-sm hover:underline">Send another message</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 tracking-wider uppercase">Name *</label>
+                    <input name="name" required value={form.name} onChange={handleChange} placeholder="Your name" className={inputCls} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 tracking-wider uppercase">Email *</label>
+                    <input name="email" type="email" required value={form.email} onChange={handleChange} placeholder="your@email.com" className={inputCls} />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 tracking-wider uppercase">Phone</label>
+                  <input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="+91 00000 00000" className={inputCls} />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 tracking-wider uppercase">Message *</label>
+                  <textarea name="message" required rows={6} value={form.message} onChange={handleChange} placeholder="How can we help you?" className={inputCls + " resize-none"} />
+                </div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-[#0D4017] text-white font-semibold py-3.5 rounded-xl hover:bg-[#0a3313] transition-all active:scale-[0.99] disabled:opacity-60 flex items-center justify-center gap-2"
+                >
+                  {loading ? (
+                    <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Sending…</>
+                  ) : (
+                    <><Send size={15} /> Send Message</>
+                  )}
+                </button>
+              </form>
+            )}
+
+            {/* Back */}
+            <div className="flex justify-center mt-10">
+              <button onClick={() => navigate('/')}
+                className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#0D4017] transition-colors">
+                <ArrowLeft size={14} /> Back to Home
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
 };
 
 export default ContactForm;

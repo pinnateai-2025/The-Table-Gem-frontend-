@@ -1,11 +1,9 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/autoplay';
-
-// Use imported images
+import 'swiper/css/effect-fade';
 import img7 from '../image/img7.jpg';
 import img6 from '../image/img6.jpg';
 import img4 from '../image/img4.jpg';
@@ -13,50 +11,55 @@ import img4 from '../image/img4.jpg';
 const images = [img7, img6, img4];
 
 const Slider1 = () => {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  const navigate = useNavigate();
 
   return (
-    <div className="w-full relative h-[200px] sm:h-[250px] md:h-[350px] ">
-      <Swiper
-        modules={[Autoplay, Navigation]}
-        autoplay={{ delay: 2000 }}
-        navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        }}
-        onBeforeInit={(swiper) => {
-          swiper.params.navigation.prevEl = prevRef.current;
-          swiper.params.navigation.nextEl = nextRef.current;
-        }}
-        loop={true}
-        spaceBetween={0}
-        slidesPerView={1}
-        className="w-full h-full z-20"
-      >
-        {images.map((img, index) => (
-          <SwiperSlide key={index}>
-            <img
-              src={img}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-[200px] sm:h-[250px] md:h-[350px] object-cover"
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap');
+      `}</style>
 
-      <div className="absolute z-30 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 sm:p-6 rounded-[15px] shadow-md text-center max-w-[280px] sm:max-w-[320px] w-full">
-        <h2 className="text-[#0f2e0f] text-lg sm:text-xl font-bold border-2 border-[#0f2e0f] mb-2 py-2 sm:py-3 w-[200px] sm:w-[240px] mx-auto">
-          15% OFF
-        </h2>
-        <p className="text-[#222] md:text-lg sm:text-base font-serif mb-4 leading-5 sm:leading-6 uppercase">
-         Discover our <br /> unique collection
-        </p>
-        <button className="bg-[#0D4017] text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-[#2a4a2a] transition h-[40px] sm:h-[50px] w-[160px] sm:w-[200px]">
-          Shop Now
-        </button>
-      </div>
-    </div>
+      <section className="relative w-full h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden">
+        <Swiper
+          modules={[Autoplay, EffectFade]}
+          effect="fade"
+          autoplay={{ delay: 3500, disableOnInteraction: false }}
+          loop
+          className="w-full h-full"
+        >
+          {images.map((img, i) => (
+            <SwiperSlide key={i}>
+              <img src={img} alt={`Slide ${i + 1}`} className="w-full h-full object-cover" />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/30 z-10" />
+
+        {/* Centered card */}
+        <div className="absolute inset-0 z-20 flex items-center justify-center px-4">
+          <div
+            className="text-center bg-white/90 backdrop-blur-sm rounded-2xl px-8 py-8 sm:px-12 sm:py-10 shadow-2xl max-w-sm w-full"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            <p className="text-[10px] tracking-[0.35em] text-[#0D4017]/60 uppercase mb-3">Limited Time</p>
+            <div className="border-2 border-[#0D4017] rounded-xl py-3 px-6 mb-4 inline-block w-full">
+              <span className="text-4xl font-light text-[#0D4017]">15<span className="text-2xl">% OFF</span></span>
+            </div>
+            <p className="text-gray-700 text-lg font-light italic mb-6 leading-snug">
+              Discover our unique<br />handcrafted collection
+            </p>
+            <button
+              onClick={() => navigate('/shop')}
+              className="bg-[#0D4017] text-white text-sm tracking-widest px-8 py-3 rounded-full hover:bg-[#0a3313] transition-all duration-300 w-full"
+            >
+              SHOP NOW
+            </button>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

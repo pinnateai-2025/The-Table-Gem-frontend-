@@ -2,103 +2,106 @@ import { useState, useEffect, useRef } from 'react';
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Dropdown = ({ label, options, selected, onSelect }) => {
-    const [isOpen, setIsOpen] = useState(false);
-       const dropdownRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-    // Close dropdown on outside click
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsOpen(false);
-            }
-        };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+  return (
+    <div ref={dropdownRef} className="relative inline-block text-left">
+      <button
+        type="button"
+        className="flex items-center gap-1 px-3 max-[500px]:px-1 py-1.5 max-[500px]:text-[14px] bg-white rounded-md hover:border-blue-500 transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {selected || label}
+        <RiArrowDropDownLine className="text-xl md:text-2xl" />
+      </button>
 
-    return (
-        <div ref={dropdownRef} className="relative inline-block text-left">
-            <button
-                type="button"
-                className="flex items-center gap-1 px-3 max-[500px]:px-1 py-1.5 max-[500px]:text-[14px] bg-white rounded-md hover:border-blue-500 transition-colors"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                {selected || label}
-                <RiArrowDropDownLine className="text-xl md:text-2xl -mt-[-4px]" />
-            </button>
-
-            {isOpen && (
-                <div className=" max-[500px]:w-[150px] origin-top-right absolute right-auto left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
-                    <div className="py-1" role="menu">
-                        {options.map((option) => (
-                            <button
-                                key={option}
-                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                onClick={() => {
-                                    onSelect(option);
-                                    setIsOpen(false);
-                                }}
-                                role="menuitem"
-                            >
-                                {option}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            )}
+      {isOpen && (
+        <div className="max-[500px]:w-[150px] origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+          <div className="py-1">
+            {options.map((option) => (
+              <button
+                key={option}
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => {
+                  onSelect(option);
+                  setIsOpen(false);
+                }}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
-const ProductFilter = () => {
-    const [availability, setAvailability] = useState('');
-    const [priceSort, setPriceSort] = useState('');
-    const [dateSort, setDateSort] = useState('Date - Latest');
+// ✅ FIX: accepts onFilterChange and totalCount as props
+const ProductFilter = ({ onFilterChange, totalCount = 0 }) => {
+  const [availability, setAvailability] = useState('');
+  const [priceSort, setPriceSort] = useState('');
+  const [dateSort, setDateSort] = useState('');
 
-    const availabilityOptions = ['In Stock', 'Out of Stock', 'Pre-Order'];
-    const priceOptions = ['Low to High', 'High to Low'];
-    const dateOptions = ['Newest First', 'Oldest First', 'Recently Updated'];
+  const availabilityOptions = ['All', 'In Stock', 'Out of Stock'];
+  const priceOptions = ['Low to High', 'High to Low'];
+  const dateOptions = ['Newest First', 'Oldest First'];
 
-    return (
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 max-[500px]:gap-0 mb-6 max-[500px]:mb-4 px-4 max-[500px]:px-0">
+  // ✅ FIX: notify parent whenever filter changes
+  useEffect(() => {
+    if (onFilterChange) {
+      onFilterChange({ availability, priceSort, dateSort });
+    }
+  }, [availability, priceSort, dateSort]);
 
-            <div className="flex flex-wrap items-center gap-4">
-                <span className="text-black font-medium max-[500px]:text-[14px]">Filter:</span>
-                <div className="flex flex-wrap items-center gap-3 ml-1">
-                    <Dropdown
-                        label="Availability"
-                        options={availabilityOptions}
-                        selected={availability}
-                        onSelect={setAvailability}
-                    />
-                    <Dropdown
-                        label="Price"
-                        options={priceOptions}
-                        selected={priceSort}
-                        onSelect={setPriceSort}
-                    />
-                </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4">
-                <div className="flex items-center gap-2">
-                    <span className="text-black font-medium max-[500px]:text-[14px]">Sort by:</span>
-                    <Dropdown
-                        label="Date - Latest"
-                        options={dateOptions}
-                        selected={dateSort}
-                        onSelect={setDateSort}
-                    />
-                </div>
-                <span className="text-black text-sm md:text-base font-medium">
-                    58 Products
-                </span>
-            </div>
+  return (
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 max-[500px]:gap-0 mb-6 max-[500px]:mb-4 px-4 max-[500px]:px-0">
+      <div className="flex flex-wrap items-center gap-4">
+        <span className="text-black font-medium max-[500px]:text-[14px]">Filter:</span>
+        <div className="flex flex-wrap items-center gap-3 ml-1">
+          <Dropdown
+            label="Availability"
+            options={availabilityOptions}
+            selected={availability}
+            onSelect={setAvailability}
+          />
+          <Dropdown
+            label="Price"
+            options={priceOptions}
+            selected={priceSort}
+            onSelect={setPriceSort}
+          />
         </div>
-    );
+      </div>
+
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="flex items-center gap-2">
+          <span className="text-black font-medium max-[500px]:text-[14px]">Sort by:</span>
+          <Dropdown
+            label="Newest First"
+            options={dateOptions}
+            selected={dateSort}
+            onSelect={setDateSort}
+          />
+        </div>
+        {/* ✅ FIX: dynamic product count */}
+        <span className="text-black text-sm md:text-base font-medium">
+          {totalCount} Products
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default ProductFilter;

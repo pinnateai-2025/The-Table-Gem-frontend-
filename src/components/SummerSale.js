@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useWishlist } from "../context/WishlistContext";
+import { fetchProducts } from "../api/fetchProducts";
 
 const SummerSale = () => {
   const [products, setProducts] = useState([]);
@@ -12,21 +13,12 @@ const SummerSale = () => {
 
   const isLiked = (id) => wishlist.some((item) => item.id === id);
 
-  // Use API base URL from .env
-  const API_URL = process.env.REACT_APP_API_URL;
-
   // Fetch products from API
   useEffect(() => {
-    const fetchProducts = async () => {
+    const loadProducts = async () => {
       try {
-        const res = await fetch(`${API_URL}/products`);
-        const data = await res.json();
-
-        if (Array.isArray(data)) {
-          setProducts(data);
-        } else if (data?.data) {
-          setProducts(data.data);
-        }
+        const result = await fetchProducts();
+        setProducts(result.products);
       } catch (err) {
         console.error("Error fetching products:", err);
       } finally {
@@ -34,8 +26,8 @@ const SummerSale = () => {
       }
     };
 
-    fetchProducts();
-  }, [API_URL]);
+    loadProducts();
+  }, []);
 
   return (
     <div className="w-full">

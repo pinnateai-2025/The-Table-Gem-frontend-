@@ -4,6 +4,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useWishlist } from "../context/WishlistContext";
 import Layout from "../layout/Layout";
 import CategoriesButton from "../components/CategoriesButton";
+import { fetchProducts } from "../api/fetchProducts";
 import api from "../api/axios";
 
 const CategoryPage = () => {
@@ -45,11 +46,8 @@ const CategoryPage = () => {
         setSubcategories(subs);
 
         // ✅ Fetch products filtered by categoryId
-        const { data: allProducts } = await api.get("/product");
-        const filtered = allProducts.filter(
-          (p) => String(p.categoryId) === String(id)
-        );
-        setProducts(filtered);
+        const result = await fetchProducts({ category: id });
+        setProducts(result.products);
 
       } catch (err) {
         console.error("Failed to fetch data", err);

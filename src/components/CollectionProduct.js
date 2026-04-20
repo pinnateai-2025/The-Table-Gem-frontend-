@@ -1,107 +1,159 @@
+import { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import ProductFilter from './ProductFilter';
-import img3 from "../image/img3.png";
-import imgHover from "../image/hover.jpg";
 import { useWishlist } from "../context/WishlistContext";
-
-const products = Array.from({ length: 7 }, (_, i) => ({
-    id: i + 1,
-    title: "Ceramic Dinner Set of 6 Pcs",
-    originalPrice: 999,
-    price: 450,
-    image: img3,
-    hoverImage: imgHover,
-}));
+import { fetchProducts } from "../api/fetchProducts";
 
 const CollectionProduct = () => {
+  const { wishlist, toggleWishlist } = useWishlist();
+  const navigate = useNavigate();
 
-    const { wishlist, toggleWishlist } = useWishlist();
-    const navigate = useNavigate();
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const isLiked = (id) => wishlist.some((item) => item.id === id);
+  const isLiked = (id) => wishlist.some((item) => item.id === id);
 
-    return (
-        <div className="w-full px-4 py-6">
-            <h2
-                className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase"
+  // ✅ FIX: fetch from API
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const result = await fetchProducts();
+        setAllProducts(result.products);
+        setFilteredProducts(result.products);
+      } catch (err) {
+        console.error("Failed to fetch products", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProducts();
+  }, []);
+
+  // ✅ FIX: apply filters when filter changes
+  const handleFilterChange = ({ availability, priceSort, dateSort }) => {
+    let result = [...allProducts];
+
+    if (availability === "In Stock") {
+      result = result.filter((p) => p.stock > 0);
+    } else if (availability === "Out of Stock") {
+      result = result.filter((p) => p.stock === 0);
+    }
+
+    if (priceSort === "Low to High") {
+      result.sort((a, b) => a.price - b.price);
+    } else if (priceSort === "High to Low") {
+      result.sort((a, b) => b.price - a.price);
+    }
+
+    if (dateSort === "Newest First") {
+      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (dateSort === "Oldest First") {
+      result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+
+    setFilteredProducts(result);
+  };
+
+  return (
+    <div className="w-full px-4 py-6">
+      <h2 className="flex items-center justify-center h-[48px] font-trajan text-[40px] max-[500px]:text-[20px] font-normal leading-none tracking-[0.02em] text-black rounded-md shadow-sm mb-6 bg-gradient-to-r from-white via-gray-300 to-white uppercase">
+        Collection
+      </h2>
+
+      {/* ✅ FIX: pass onFilterChange and totalCount */}
+      <ProductFilter
+        onFilterChange={handleFilterChange}
+        totalCount={filteredProducts.length}
+      />
+
+      {loading ? (
+        <p className="text-center text-gray-600">Loading products...</p>
+      ) : (
+        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-4 pb-2 justify-items-center">
+          {filteredProducts.length > 0 ? filteredProducts.map((product) => (
+            <div
+              key={product.id}
+              className="bg-white rounded-lg hover:shadow-md transition flex-shrink-0"
             >
-                Collection
-            </h2>
+              {/* Image */}
+              <div
+                className="w-full h-[360px] max-[1024px]:h-[200px] max-[768px]:h-[250px] max-[500px]:w-[100px] max-[500px]:h-[100px] overflow-hidden rounded-md cursor-pointer"
+                onClick={() => navigate("/productdetails", { state: { product } })}
+              >
+                <img
+                  src={product.image_url || "/placeholder.png"}
+                  alt={product.name}
+                  className="w-full h-full object-cover rounded-md"
+                  onError={(e) => { e.currentTarget.src = "/placeholder.png"; }}
+                />
+              </div>
 
-            <ProductFilter />
-
-            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-4 pb-2 justify-items-center">
-                {products.map((product) => (
-                    <div
-                        key={product.id}
-                        className="bg-white rounded-lg hover:shadow-md transition flex-shrink-0"
-                    >
-                        {/* Image Section */}
-                        <div className="w-full h-[360px] max-[1024px]:h-[200px] max-[768px]:h-[250px] max-[500px]:w-[100px] max-[500px]:h-[100px] max-[350px]:w-[90px] max-[350px]:h-[90px] overflow-hidden rounded-md relative group cursor-pointer">
-                            <img
-                                onClick={() => navigate("/productdetails", { state: { product } })}
-                                src={product.image}
-                                alt={product.title}
-                                className="w-full h-full object-cover rounded-md transition-opacity duration-300 group-hover:opacity-0"
-                            />
-                            <img
-                                src={product.hoverImage}
-                                alt={`${product.title} hover`}
-                                className="absolute inset-0 w-full h-full object-cover rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                            />
-                        </div>
-
-                        {/* Product Info */}
-                        <div className="px-2 py-3 max-[500px]:px-0 max-[500px]:py-0">
-                            <div className="flex items-center justify-between max-[500px]:mt-2">
-                                {/* LEFT SIDE (Title + Prices) */}
-                                <div className="flex flex-col w-full max-[500px]:w-[100px] max-[350px]:w-[90px]">
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="text-base max-[1024px]:text-[12px] max-[768px]:text-[14px] max-[500px]:text-[10px] max-[500px]:w-[80px] max-[500px]:leading-tight font-semibold text-gray-900">
-                                            {product.title}
-                                        </h3>
-                                        <div onClick={() => toggleWishlist(product)}>
-                                            {isLiked(product.id) ? (
-                                                <FaHeart className="text-red-500 text-[20px] cursor-pointer" />
-                                            ) : (
-                                                <FaRegHeart className="text-black text-[20px] hover:text-red-500 cursor-pointer" />
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    <div className="flex flex-row max-[500px]:flex-col max-[500px]:items-start gap-2 max-[500px]:gap-0 items-center mt-2 max-[500px]:mt-1">
-                                        <p className="text-[16px] max-[500px]:text-[10px] text-red-700 line-through md:text-[12px]">
-                                            Rs. {product.originalPrice}.00
-                                        </p>
-                                        <p className="text-[16px] max-[500px]:text-[10px] font-medium text-green-800 md:text-[12px]">
-                                            Rs. {product.price}.00
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Actions */}
-                            <div className="mt-10 max-[500px]:mt-2 flex justify-between items-center md:mt-[16px] max-[350px]:w-[90px]">
-                                <button className="border border-green-900 text-green-900 px-4 py-1 rounded hover:bg-green-900 hover:text-white transition w-full text-sm lg:text-xl max-[500px]:w-[100px] max-[500px]:text-[10px]">
-                                    Add to cart
-                                </button>
-                            </div>
-                        </div>
+              {/* Info */}
+              <div className="px-2 py-3 max-[500px]:px-0 max-[500px]:py-0">
+                <div className="flex items-center justify-between max-[500px]:mt-2">
+                  <div className="flex flex-col w-full max-[500px]:w-[100px]">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base max-[500px]:text-[10px] max-[500px]:w-[80px] font-semibold text-gray-900">
+                        {product.name}
+                      </h3>
+                      <div
+                        onClick={() => toggleWishlist({
+                          id: product.id,
+                          name: product.name,
+                          image_url: product.image_url,
+                          price: product.price,
+                        })}
+                        role="button"
+                      >
+                        {isLiked(product.id) ? (
+                          <FaHeart className="text-red-500 text-[20px] cursor-pointer" />
+                        ) : (
+                          <FaRegHeart className="text-black text-[20px] hover:text-red-500 cursor-pointer" />
+                        )}
+                      </div>
                     </div>
-                ))}
-            </div>
 
-            <div className="flex justify-center mt-[20px] w-full">
-                <button
-                    className="flex items-center justify-center w-[110px] h-[40px] max-[500px]:w-[90px] max-[500px]:h-[30px] font-lato font-semibold text-[14px] max-[500px]:text-[12px] leading-[120%] tracking-[0.02em] border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md cursor-pointer hover:bg-white hover:text-[#0D4017] transition duration-300 mt-15"
-                    onClick={() => navigate('/')}
-                >
-                    Back
-                </button>
+                    <div className="flex flex-row gap-2 items-center mt-2">
+                      {product.mrp && product.mrp > product.price && (
+                        <p className="text-[16px] max-[500px]:text-[10px] text-red-700 line-through md:text-[12px]">
+                          ₹{Number(product.mrp).toFixed(0)}
+                        </p>
+                      )}
+                      <p className="text-[16px] max-[500px]:text-[10px] font-medium text-green-800 md:text-[12px]">
+                        ₹{Number(product.price).toFixed(0)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-10 max-[500px]:mt-2 flex justify-between items-center md:mt-[16px]">
+                  <button
+                    onClick={() => navigate("/productdetails", { state: { product } })}
+                    className="border border-green-900 text-green-900 px-4 py-1 rounded hover:bg-green-900 hover:text-white transition w-full text-sm"
+                  >
+                    Add to cart
+                  </button>
+                </div>
+              </div>
             </div>
+          )) : (
+            <p className="col-span-4 text-center text-gray-500 mt-10">No products found.</p>
+          )}
         </div>
-    );
+      )}
+
+      <div className="flex justify-center mt-[20px] w-full">
+        <button
+          className="flex items-center justify-center w-[110px] h-[40px] border border-green-900 bg-[#0D4017] text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#0D4017] transition"
+          onClick={() => navigate('/')}
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default CollectionProduct;

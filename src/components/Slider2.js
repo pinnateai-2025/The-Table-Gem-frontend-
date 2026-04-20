@@ -1,66 +1,62 @@
-import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
+import 'swiper/css/effect-fade';
 import img4 from "../image/img4.jpg";
 import img6 from "../image/img6.jpg";
 import img7 from "../image/img7.jpg";
 
+const images = [img4, img6, img7];
+
 const Slider2 = () => {
-    const images = [
-        img4,
-        img6,
-        img7
-    ];
+  const navigate = useNavigate();
 
-    const prevRef = useRef(null);
-    const nextRef = useRef(null);
+  return (
+    <>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap');`}</style>
 
-    return (
-        <div className="w-full relative mt-8  sm:h-[300px] md:h-[350px] sm:absolute md:relative md:mt-[10px] sm:-mt-[1500px]">
-            <Swiper
-                modules={[Autoplay, Navigation]}
-                autoplay={{ delay: 2000 }}
-                navigation={{
-                    prevEl: prevRef.current,
-                    nextEl: nextRef.current,
-                }}
-                onBeforeInit={(swiper) => {
-                    swiper.params.navigation.prevEl = prevRef.current;
-                    swiper.params.navigation.nextEl = nextRef.current;
-                }}
-                loop={true}
-                spaceBetween={0}
-                slidesPerView={1}
-                className="w-full h-full z-[1]"
-            >
-                {images.map((img, index) => (
-                    <SwiperSlide key={index}>
-                        <img
-                            src={img}
-                            alt={`Slide ${index + 1}`}
-                            className="w-full h-[200px] sm:h-[250px] md:h-[350px] object-cover "
-                        />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-            {/* Overlay Card */}
-            <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="absolute z-30 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 p-4 sm:p-6 rounded-[15px] shadow-md text-center max-w-[280px] sm:max-w-[320px] w-full">
-                    <h2 className="text-[#0f2e0f] text-lg sm:text-xl font-bold border-2 border-[#0f2e0f] mb-2 py-2 sm:py-3 w-[200px] sm:w-[240px] mx-auto uppercase tracking-widest">
-                        Coffee Mugs
-                    </h2>
-                    <p className="text-[#222] md:text-lg sm:text-base font-serif mb-4 leading-5 sm:leading-6 ">
-                        EXPLORE OUR TRENDY COFFEE MUGS
-                    </p>
-                    <button className="bg-[#0D4017] text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-[#2a4a2a] transition h-[40px] sm:h-[50px] w-[160px] sm:w-[200px]">
-                        Shop Now
-                    </button>
-                </div>
+      <section className="relative w-full h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden mt-0">
+        <Swiper
+          modules={[Autoplay, EffectFade]}
+          effect="fade"
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          loop
+          className="w-full h-full"
+        >
+          {images.map((img, i) => (
+            <SwiperSlide key={i}>
+              <img src={img} alt="" className="w-full h-full object-cover" />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <div className="absolute inset-0 bg-black/35 z-10" />
+
+        {/* Right-aligned card on desktop, centered on mobile */}
+        <div className="absolute inset-0 z-20 flex items-center justify-center md:justify-end md:pr-24 px-6">
+          <div
+            className="text-center bg-white/92 backdrop-blur-sm rounded-2xl px-8 py-8 sm:px-10 sm:py-10 shadow-2xl max-w-xs w-full"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            <p className="text-[10px] tracking-[0.35em] text-[#0D4017]/60 uppercase mb-3">Featured</p>
+            <div className="border-2 border-[#0D4017] rounded-xl py-3 px-4 mb-4">
+              <span className="text-xl font-semibold tracking-widest text-[#0D4017] uppercase">Coffee Mugs</span>
             </div>
+            <p className="text-gray-600 text-base font-light italic mb-6 leading-snug">
+              Explore our trendy<br />artisan collection
+            </p>
+            <button
+              onClick={() => navigate('/shop')}
+              className="bg-[#0D4017] text-white text-sm tracking-widest px-8 py-3 rounded-full hover:bg-[#0a3313] transition-all duration-300 w-full"
+            >
+              EXPLORE
+            </button>
+          </div>
         </div>
-    );
+      </section>
+    </>
+  );
 };
 
 export default Slider2;

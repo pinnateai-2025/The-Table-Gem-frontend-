@@ -1,26 +1,39 @@
 import React, { useEffect, useState } from 'react';
 
 const messages = [
-  '2000+ Happy Customers',
-  'Summer sale is live 40% Discount',
-  'For bulk purchase, please contact +91 8051550460',
+  '✦  2000+ Happy Customers  ✦',
+  '✦  Summer Sale — 40% Off Sitewide  ✦',
+  '✦  Bulk Orders: +91 8051550460  ✦',
 ];
 
 const TopBar = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [current, setCurrent] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev + 1) % messages.length);
-    }, 2000); // switch every 2 sec
-
+      setVisible(false);
+      setTimeout(() => {
+        setCurrent(p => (p + 1) % messages.length);
+        setVisible(true);
+      }, 400);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="bg-[rgba(13,64,23,1)] w-full text-center text-xs flex items-center justify-center font-semibold z-50 relative h-[50px] max-[768px]:h-[40px] max-[425px]:h-[30px]">
-      <p className="fade-in transition-all duration-500 text-[12px] sm:text-[18px] md:text-[20px] text-white font-semibold">
-        {messages[currentIndex]}
+    <div className="bg-[#0D4017] w-full h-10 flex items-center justify-center overflow-hidden">
+      <p
+        style={{
+          transition: 'opacity 0.4s ease, transform 0.4s ease',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0)' : 'translateY(-8px)',
+          letterSpacing: '0.12em',
+          fontFamily: "'Cormorant Garamond', serif",
+        }}
+        className="text-white text-xs sm:text-sm font-medium tracking-widest"
+      >
+        {messages[current]}
       </p>
     </div>
   );
