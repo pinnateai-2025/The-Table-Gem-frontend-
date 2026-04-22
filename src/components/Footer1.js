@@ -10,7 +10,7 @@ const sections = [
     items: [
       { label: 'Home', path: '/' },
       { label: 'New Arrivals', path: '/newarrival' },
-      { label: 'Collection', path: '/shop' },
+      { label: 'Shop', path: '/shop' },
       { label: 'Wholesale', path: '/wholesale' },
     ],
   },
@@ -35,7 +35,7 @@ const sections = [
     title: 'Our Office',
     items: [
       { label: 'The Table Gem', path: null },
-      { label: 'Ashok Rajpath, Patna, Bihar 800004', path: null },
+      { label: '1st floor, City centre mall, Christian Colony, Lodipur, Patna, Bihar 800001', path: null },
       { label: 'Mon–Fri: 10:30am – 6:30pm', path: null },
       { label: '+91-8051550460', path: 'tel:+918051550460' },
       { label: 'thetablegem@gmail.com', path: 'mailto:thetablegem@gmail.com' },

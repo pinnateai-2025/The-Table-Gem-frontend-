@@ -3,7 +3,6 @@ import './index.css';
 import Home from './pages/Home';
 import NewArrivalPage from './pages/NewArrival';
 import Gifts from './pages/Gifts';
-import Collection from './pages/Collection';
 import Wholesale from './pages/Wholesale';
 import Shop from './pages/Shop';
 import Contact from './pages/Contact';
@@ -17,7 +16,15 @@ import Orders from "./pages/Orders";
 import GiftCards from "./pages/GiftCards";
 import CategoryPage from "./pages/Category";
 import { WishlistProvider } from "./context/WishlistContext";
-import { CartProvider } from "./context/CartContext"; // ✅ add
+import { CartProvider } from "./context/CartContext";
+
+
+//policy pages & feedback
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
+import ShippingPolicy from './pages/ShippingPolicy';
+import ReturnPolicy from './pages/ReturnPolicy';
+import Feedback from './pages/Feedback';
 
 const App = () => (
   <Router>
@@ -27,7 +34,6 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/newarrival" element={<NewArrivalPage />} />
           <Route path="/gifts" element={<Gifts />} />
-          <Route path="/collection" element={<Collection />} />
           <Route path="/wholesale" element={<Wholesale />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
@@ -41,7 +47,13 @@ const App = () => (
           <Route path="/orders/:id" element={<Orders />} />
           <Route path="/gift-cards" element={<GiftCards />} />
           <Route path="/category/:id" element={<CategoryPage />} />
-          <Route path="/cart" element={<Cart />} /> {/* ✅ add cart page */}
+          <Route path="/cart" element={<Cart />} />
+
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/shipping" element={<ShippingPolicy />} />
+          <Route path="/returns" element={<ReturnPolicy />} />
+          <Route path="/feedback" element={<Feedback />} />
         </Routes>
       </CartProvider>
     </WishlistProvider>
