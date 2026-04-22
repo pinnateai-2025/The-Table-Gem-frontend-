@@ -1,95 +1,185 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import api from "../api/axios";
 
-const CartContext = createContext();
+const CartContext = createContext({
+  cartItems: [],
+  cartCount: 0,
+  subtotal: 0,
+  grandTotal: 0,
+  discountAmount: 0,
+  couponCode: null,
+  loading: false,
+  fetchCart: () => { },
+  addToCart: () => { },
+  updateQuantity: () => { },
+  removeFromCart: () => { },
+  clearCart: () => { },
+  applyCoupon: () => { },
+  removeCoupon: () => { },
+});
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [couponCode, setCouponCode] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [cartId, setCartId] = useState(null);
 
   const token = localStorage.getItem("token");
 
-  const fetchCart = async () => {
-    if (!token) {
+  /* ── Parse and apply backend cart response ── */
+  const applyCart = useCallback((cart) => {
+    if (!cart) return;
+    // Backend returns: { id, items: [...], subtotal, totalItems, grandTotal, discountAmount, couponCode }
+    setCartId(cart.id);
+    setCartItems(cart.items || []);
+    setCartCount(cart.totalItems || 0);
+    setSubtotal(Number(cart.subtotal || 0));
+    setGrandTotal(Number(cart.grandTotal || 0));
+    setDiscountAmount(Number(cart.discountAmount || 0));
+    setCouponCode(cart.couponCode || null);
+  }, []);
+
+  /* ── Fetch cart from GET /cart ── */
+  const fetchCart = useCallback(async () => {
+    if (!localStorage.getItem("token")) {
+      // Not logged in — clear cart silently
       setCartItems([]);
       setCartCount(0);
       return;
     }
+    setLoading(true);
     try {
-      setLoading(true);
-      const { data } = await api.get("/cart");         // ✅ GET /cart
-      const items = data.items || [];
-      setCartItems(items);
-      setCartCount(items.reduce((sum, item) => sum + item.quantity, 0));
+      const { data } = await api.get("/cart");
+      // Backend: { success: true, cart: { id, items, subtotal, totalItems, ... } }
+      applyCart(data?.cart || data);
     } catch (err) {
-      // ✅ If cart not found (404), just set empty — don't crash
-      if (err.response?.status === 404) {
+      if (err.response?.status === 401) {
+        // Token expired — clear cart
         setCartItems([]);
         setCartCount(0);
-      } else {
-        console.error("Failed to fetch cart:", err);
       }
+      console.error("fetchCart error:", err.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [applyCart]);
 
+  /* ── Fetch on mount + when token changes ── */
   useEffect(() => {
     fetchCart();
-  }, [token]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [token]);
 
-  const addToCart = async (productId, quantity = 1) => {
-    if (!token) return { success: false, requiresLogin: true };
+  /* ── Add to cart → POST /cart/items ── */
+  const addToCart = useCallback(async (productId, quantity = 1, size, color) => {
     try {
-      // ✅ FIX: POST /cart not POST /cart/add
-      await api.post("/cart", { productId, quantity });
-      await fetchCart();
+      const { data } = await api.post("/cart/items", {
+        productId,
+        quantity,
+        ...(size && { size }),
+        ...(color && { color }),
+      });
+      applyCart(data?.cart || data);
       return { success: true };
     } catch (err) {
-      console.error("Add to cart failed:", err);
-      return { success: false, error: err.response?.data?.message };
+      const msg = err.response?.data?.message
+        || err.response?.data?.errors?.[0]?.msg
+        || "Failed to add to cart";
+      console.error("addToCart error:", msg);
+      return { success: false, message: msg };
     }
-  };
+  }, [applyCart]);
 
-  const removeFromCart = async (cartItemId) => {
+  /* ── Update quantity → PATCH /cart/items/:itemId ── */
+  const updateQuantity = useCallback(async (itemId, quantity) => {
     try {
-      // ✅ FIX: DELETE /cart/:itemId
-      await api.delete(`/cart/${cartItemId}`);
-      await fetchCart();
+      const { data } = await api.patch(`/cart/items/${itemId}`, { quantity });
+      applyCart(data?.cart || data);
     } catch (err) {
-      console.error("Remove from cart failed:", err);
+      console.error("updateQuantity error:", err.message);
+      // Refetch to stay in sync
+      fetchCart();
     }
-  };
+  }, [applyCart, fetchCart]);
 
-  const updateQuantity = async (cartItemId, quantity) => {
+  /* ── Remove item → DELETE /cart/items/:itemId ── */
+  const removeFromCart = useCallback(async (itemId) => {
+    // Optimistic update
+    setCartItems(prev => {
+      const next = prev.filter(i => i.id !== itemId);
+      setCartCount(next.reduce((s, i) => s + i.quantity, 0));
+      return next;
+    });
     try {
-      // ✅ FIX: PUT /cart/:itemId
-      await api.put(`/cart/${cartItemId}`, { quantity });
-      await fetchCart();
+      const { data } = await api.delete(`/cart/items/${itemId}`);
+      applyCart(data?.cart || data);
     } catch (err) {
-      console.error("Update quantity failed:", err);
+      console.error("removeFromCart error:", err.message);
+      fetchCart(); // refetch on error
     }
-  };
+  }, [applyCart, fetchCart]);
 
-  const clearCart = () => {
+  /* ── Clear cart → DELETE /cart ── */
+  const clearCart = useCallback(async () => {
     setCartItems([]);
     setCartCount(0);
-  };
+    setSubtotal(0);
+    setGrandTotal(0);
+    setDiscountAmount(0);
+    setCouponCode(null);
+    try {
+      await api.delete("/cart");
+    } catch (err) {
+      console.error("clearCart error:", err.message);
+    }
+  }, []);
+
+  /* ── Apply coupon → POST /cart/coupon ── */
+  const applyCoupon = useCallback(async (code) => {
+    try {
+      const { data } = await api.post("/cart/coupon", { code });
+      // Refetch to get updated totals
+      await fetchCart();
+      return { success: true, message: data.message };
+    } catch (err) {
+      return {
+        success: false,
+        message: err.response?.data?.message || "Invalid coupon",
+      };
+    }
+  }, [fetchCart]);
+
+  /* ── Remove coupon → DELETE /cart/coupon ── */
+  const removeCoupon = useCallback(async () => {
+    try {
+      await api.delete("/cart/coupon");
+      await fetchCart();
+    } catch (err) {
+      console.error("removeCoupon error:", err.message);
+    }
+  }, [fetchCart]);
 
   return (
-    <CartContext.Provider
-      value={{
-        cartItems,
-        cartCount,
-        loading,
-        fetchCart,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-      }}
-    >
+    <CartContext.Provider value={{
+      cartItems,
+      cartCount,
+      subtotal,
+      grandTotal,
+      discountAmount,
+      couponCode,
+      loading,
+      cartId,
+      fetchCart,
+      addToCart,
+      updateQuantity,
+      removeFromCart,
+      clearCart,
+      applyCoupon,
+      removeCoupon,
+    }}>
       {children}
     </CartContext.Provider>
   );

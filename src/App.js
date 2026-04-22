@@ -17,6 +17,7 @@ import GiftCards from "./pages/GiftCards";
 import CategoryPage from "./pages/Category";
 import { WishlistProvider } from "./context/WishlistContext";
 import { CartProvider } from "./context/CartContext";
+import Checkout from "./pages/Checkout";
 
 
 //policy pages & feedback
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/gift-cards" element={<GiftCards />} />
           <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
 
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
